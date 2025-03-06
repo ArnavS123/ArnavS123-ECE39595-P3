@@ -13,6 +13,7 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
 {
     int currRow = getRow();
     int currCol = getColumn();
+    Color color = getColor(); // name this color bec col could be column
 
     //can't move to same pos
     if(toRow == currRow && toCol == currCol)
@@ -22,7 +23,7 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
 
     //white is going up, black is going down
     int dir; //direction that the pawn is moving
-    if(getColor() == White)
+    if(color == White)
     {
         dir = 1; // up
     }
@@ -32,18 +33,39 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
     }
 
     //note: only have to worry about row currently
-    if(toCol = currCol)
+    // Just moving forward
+    if(toCol == currCol)
     {
-        int rowSpace = toRow - currRow;
+        int rowSpace = abs(toRow - currRow);
         if(rowSpace == dir) //one step
         {
-
+            if (board.getPiece(toRow, toCol) == nullptr)
+            {
+                return(true);
+            }
         }
-        if(rowSpace == 2*dir) //two steps
+        if(rowSpace == 2*dir && first_move == true) //two steps (ensure that this is the first move)
         {
-            
+            // 2nd condition is VERY IMP to implement going forward
+            // we cannot move to a space if another piece is in the way
+            // bishop and rook will need this logic too
+            if (board.getPiece(toRow, toCol) == nullptr && board.getPiece(currRow + dir, currCol) == nullptr)
+            {
+                return(true);
+            }
         }
     }
+    // Capture piece
+    else if (abs(toCol - currCol) == 1 && toRow - currRow == dir)
+    {
+        ChessPiece *deadPiece = board.getPiece(toRow, toCol);
+        if (deadPiece != nullptr && color != deadPiece->getColor())
+        {
+            return(true);
+        }
+    }
+    
+    return(false);
 }
 
 const char* PawnPiece::toString()

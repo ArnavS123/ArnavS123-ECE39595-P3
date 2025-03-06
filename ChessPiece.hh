@@ -10,7 +10,7 @@
   class ChessPiece
   {
   //added due to errors for initializing
-  private:
+  protected: // allows derived functions to use these as well (ex: board in board.getPiece())
     ChessBoard &board;
     Color color;
     int row;
