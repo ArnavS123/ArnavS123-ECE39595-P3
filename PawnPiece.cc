@@ -74,10 +74,10 @@ const char* PawnPiece::toString()
 
     if (col == White)
     {
-        return("♙");
+        return("♙"); // this is white pawn
     }
     else
     {
-        return("♟");
+        return("♟"); // this is black pawn
     }
 }
