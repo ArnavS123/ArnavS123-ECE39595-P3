@@ -4,7 +4,7 @@
 
 using Student::PawnPiece;
 
-PawnPiece::PawnPiece(ChessBoard &board, Color color, int row, int column) : first_move(true)
+PawnPiece::PawnPiece(ChessBoard &board, Color color, int row, int column) : ChessPiece(board, color, row, column), first_move(true)
 {
 }
 
@@ -43,5 +43,19 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
         {
             
         }
+    }
+}
+
+const char* PawnPiece::toString()
+{
+    Color col = getColor();
+
+    if (col == White)
+    {
+        return("♙");
+    }
+    else
+    {
+        return("♟");
     }
 }

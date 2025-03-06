@@ -21,21 +21,21 @@ void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int start
     }
     
     // Now we put the piece at that spot
-    if(piece == Pawn)
+    if (piece == Pawn)
     {
-        board.at(startRow).at(startCol) = new PawnPiece(board, col, startRow, startCol);
+        board.at(startRow).at(startCol) = new PawnPiece(*this, col, startRow, startCol);
     }
-    if(piece == Rook)
+    if (piece == Rook)
     {
-        //board.at(startRow).at(startCol) = new RookPiece();
+        //board.at(startRow).at(startCol) = new RookPiece(*this, col, startRow, startCol);
     }
-    if(piece == Bishop)
+    if (piece == Bishop)
     {
-        //board.at(startRow).at(startCol) = new BishopPiece();
+        //board.at(startRow).at(startCol) = new BishopPiece(*this, col, startRow, startCol);
     }
-    if(piece == King)
+    if (piece == King)
     {
-        //board.at(startRow).at(startCol) = new KingPiece();
+        //board.at(startRow).at(startCol) = new KingPiece(*this, col, startRow, startCol);
     }
 }
 
