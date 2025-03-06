@@ -11,6 +11,13 @@ namespace Student
 {
     class PawnPiece : public ChessPiece
     {
+        private:
+            bool first_move;
+        public:
+            PawnPiece(ChessBoard &board, Color color, int row, int column);
+            virtual Type getType() override {return Pawn;}
+            virtual bool canMoveToLocation(int toRow, int toCol) override;
+            virtual const char *toString() override;
     };
 }
 

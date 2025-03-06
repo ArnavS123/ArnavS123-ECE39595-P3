@@ -9,6 +9,12 @@
 
   class ChessPiece
   {
+  //added due to errors for initializing
+  private:
+    ChessBoard &board;
+    Color color;
+    int row;
+    int column;
   public:
     /**
      * @brief
@@ -44,7 +50,7 @@
      * would have been to define this function as pure virtual and
      * let each derived class override this function.
      */
-    Type getType();
+    virtual Type getType() = 0; // made pure virtual (we will override this as we go along, so it's useless in ChessPiece.cc)
 
     /**
      * @return

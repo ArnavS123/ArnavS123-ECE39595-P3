@@ -11,6 +11,10 @@ namespace Student
 {
     class BishopPiece : public ChessPiece
     {
+        public:
+            BishopPiece(ChessBoard &board, Color color, int row, int column);
+            virtual bool canMoveToLocation(int toRow, int toCol) override;
+            virtual const char *toString() override;
     };
 }
 
