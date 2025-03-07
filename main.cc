@@ -34,7 +34,7 @@ void unit_isValidMove_bishop_one() {
     assert(board.isValidMove(0, 0, 3, 3));
     assert(!board.isValidMove(0, 0, 1, 2));
     assert(!board.isValidMove(0, 0, -1, -1));
-}    
+}
 
 int main()
 {
