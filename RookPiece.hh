@@ -13,6 +13,7 @@ namespace Student
     {
         public:
             RookPiece(ChessBoard &board, Color color, int row, int column);
+            virtual Type getType() override {return Rook;}
             virtual bool canMoveToLocation(int toRow, int toCol) override;
             virtual const char *toString() override;
     };

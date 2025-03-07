@@ -8,12 +8,10 @@ BishopPiece::BishopPiece(ChessBoard &board, Color color, int row, int column) : 
 {
 }
 
-//pawn can move up and down depending on color by one square (remember: pawn can move two spaces from starting pos)
 bool BishopPiece::canMoveToLocation(int toRow, int toCol)
 {
     int currRow = getRow();
     int currCol = getColumn();
-    Color color = getColor(); // name this color bec col could be column
 
     //can't move to same pos
     if(toRow == currRow && toCol == currCol)
@@ -21,51 +19,47 @@ bool BishopPiece::canMoveToLocation(int toRow, int toCol)
         return false;
     }
 
-    //white is going up, black is going down
-    int dir; //direction that the pawn is moving
-    if(color == White)
+    int row_diff = abs(toRow - currRow);
+    int col_diff = abs(toCol - currCol);
+
+    if(row_diff != col_diff) //diagonal means row and col difference should be same
     {
-        dir = 1; // up
-    }
-    else
-    {
-        dir = -1; // down
+        return false;
     }
 
-    //note: only have to worry about row currently
-    // Just moving forward
-    if(toCol == currCol)
+    int tempRow = currRow;
+    int tempCol = currCol;
+    for(int i = 0; i < row_diff; i++)
     {
-        int rowSpace = abs(toRow - currRow);
-        if(rowSpace == dir) //one step
+        if (toRow > currRow) // up or down
         {
-            if (board.getPiece(toRow, toCol) == nullptr)
+            tempRow++;
+        }
+        else
+        {
+            tempRow--;
+        }
+
+        if (toCol > currCol) // right or left
+        {
+            tempCol++;
+        }
+        else
+        {
+            tempCol--;
+        }
+
+        if(board.getPiece(tempRow, tempCol) != nullptr)
+        {
+            if (tempRow == toRow) // This is the end of our loop, if there is an enemy there, we can move and kill it
             {
                 return(true);
             }
-        }
-        if(rowSpace == 2*dir) //two steps (ensure that this is the first move)
-        {
-            // 2nd condition is VERY IMP to implement going forward
-            // we cannot move to a space if another piece is in the way
-            // bishop and rook will need this logic too
-            if (board.getPiece(toRow, toCol) == nullptr && board.getPiece(currRow + dir, currCol) == nullptr)
-            {
-                return(true);
-            }
-        }
-    }
-    // Capture piece
-    else if (abs(toCol - currCol) == 1 && toRow - currRow == dir)
-    {
-        ChessPiece *deadPiece = board.getPiece(toRow, toCol);
-        if (deadPiece != nullptr && color != deadPiece->getColor())
-        {
-            return(true);
+            return false;
         }
     }
     
-    return(false);
+    return(true);
 }
 
 const char* BishopPiece::toString()
@@ -74,10 +68,10 @@ const char* BishopPiece::toString()
 
     if (col == White)
     {
-        return("♙"); // this is white pawn
+        return("♗"); // this is white bishop
     }
     else
     {
-        return("♟"); // this is black pawn
+        return("♝"); // this is black bishop
     }
 }

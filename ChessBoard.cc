@@ -13,6 +13,12 @@ board(numRows, std::vector<ChessPiece*>(numCols, nullptr))
 
 void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int startCol)
 {
+    // Ensure it's within boundary
+    if (startRow < 0 && startRow >= numRows && startCol < 0 && startCol >= numCols)
+    {
+        return; // ERROR
+    }
+
     // We are initializing the board here, so we need to clean it up (delete whatever is on the current "spot" and then clear it)
     if (board.at(startRow).at(startCol) != nullptr)
     {
@@ -27,11 +33,11 @@ void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int start
     }
     if (piece == Rook)
     {
-        //board.at(startRow).at(startCol) = new RookPiece(*this, col, startRow, startCol);
+        board.at(startRow).at(startCol) = new RookPiece(*this, col, startRow, startCol);
     }
     if (piece == Bishop)
     {
-        //board.at(startRow).at(startCol) = new BishopPiece(*this, col, startRow, startCol);
+        board.at(startRow).at(startCol) = new BishopPiece(*this, col, startRow, startCol);
     }
     if (piece == King)
     {

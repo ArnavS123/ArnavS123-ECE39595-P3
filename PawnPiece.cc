@@ -36,7 +36,7 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
     // Just moving forward
     if(toCol == currCol)
     {
-        int rowSpace = abs(toRow - currRow);
+        int rowSpace = toRow - currRow;
         if(rowSpace == dir) //one step
         {
             if (board.getPiece(toRow, toCol) == nullptr)
@@ -51,12 +51,13 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
             // bishop and rook will need this logic too
             if (board.getPiece(toRow, toCol) == nullptr && board.getPiece(currRow + dir, currCol) == nullptr)
             {
+                first_move = false; // Unsure if this goes here, but this seems like the best spot
                 return(true);
             }
         }
     }
     // Capture piece
-    else if (abs(toCol - currCol) == 1 && toRow - currRow == dir)
+    else if (abs(toCol - currCol) == 1 && toRow - currRow == dir) // diagonal
     {
         ChessPiece *deadPiece = board.getPiece(toRow, toCol);
         if (deadPiece != nullptr && color != deadPiece->getColor())
