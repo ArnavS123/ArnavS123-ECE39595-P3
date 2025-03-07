@@ -12,11 +12,6 @@ Color ChessPiece::getColor()
     return color;
 }
 
-Type ChessPiece::getType() 
-{
-    return;
-}
-
 int ChessPiece::getRow() 
 {
     return row;

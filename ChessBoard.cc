@@ -48,11 +48,10 @@ void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int start
 bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
 {
     // = because numRows and numCols tell us how many and we start from 0
-    if (toRow < 0 && toRow >= numRows && toCol < 0 && toCol >= numCols) // boundary condition
+    if (!(toRow < 0 && toRow >= numRows && toCol < 0 && toCol >= numCols)) // boundary condition
     {
         ChessPiece* piece = board.at(fromRow).at(fromCol);
         ChessPiece* capturePiece = board.at(toRow).at(toCol);
-
         // if there does exist a piece to where we wanna move, make sure its not the same color
         if (capturePiece == nullptr || capturePiece->getColor() != piece->getColor()) // capture condition
         {
@@ -62,9 +61,15 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
     return(false); // if we fail boundary condition AND fail capture condition
 }
 
-//bool ChessBaord::movePiece(int fromRow, int fromColumn, int toRow, int toColumn) {}
+bool ChessBoard::movePiece(int fromRow, int fromColumn, int toRow, int toColumn)
+{
+    return(false);
+}
 
-//bool ChessBoard::isPieceUnderThreat(int row, int column) {}
+bool ChessBoard::isPieceUnderThreat(int row, int column)
+{
+    return(false);
+}
 
 std::ostringstream ChessBoard::displayBoard()
 {
