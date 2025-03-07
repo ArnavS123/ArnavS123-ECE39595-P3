@@ -57,14 +57,14 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
         }
     }
     // Capture piece
-    // else if (abs(toCol - currCol) == 1 && toRow - currRow == dir) // diagonal
-    // {
-    //     ChessPiece *deadPiece = board.getPiece(toRow, toCol);
-    //     if (deadPiece != nullptr && color != deadPiece->getColor())
-    //     {
-    //         return(true);
-    //     }
-    // }
+    else if (abs(toCol - currCol) == 1 && toRow - currRow == dir) // diagonal
+    {
+        ChessPiece *deadPiece = board.getPiece(toRow, toCol);
+        if (deadPiece != nullptr && color != deadPiece->getColor())
+        {
+            return(true);
+        }
+    }
     
     return(false);
 }

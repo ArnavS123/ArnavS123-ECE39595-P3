@@ -51,10 +51,10 @@ bool BishopPiece::canMoveToLocation(int toRow, int toCol)
 
         if(board.getPiece(tempRow, tempCol) != nullptr)
         {
-            // if (tempRow == toRow) // This is the end of our loop, if there is an enemy there, we can move and kill it
-            // {
-            //     return(true);
-            // }
+            if (tempRow == toRow) // This is the end of our loop, if there is an enemy there, we can move and kill it
+            {
+                return(true);
+            }
             return false;
         }
     }
