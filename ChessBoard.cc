@@ -11,6 +11,23 @@ board(numRows, std::vector<ChessPiece*>(numCols, nullptr))
 {
 }
 
+// added implementation
+ChessBoard::~ChessBoard()
+{
+    for (int row = 0; row < numRows; row++)
+    {
+        for (int col = 0; col < numCols; col++)
+        {
+            if (board.at(row).at(col) != nullptr)
+            {
+                delete board.at(row).at(col);
+                board.at(row).at(col) = nullptr;
+            }
+        }
+    }
+}
+
+
 void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int startCol)
 {
     // Ensure it's within boundary
@@ -48,7 +65,8 @@ void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int start
 bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
 {
     // = because numRows and numCols tell us how many and we start from 0
-    if (!(toRow < 0 && toRow >= numRows && toCol < 0 && toCol >= numCols)) // boundary condition
+    if (!(fromRow < 0 || fromRow >= numRows || fromCol < 0 || fromCol >= numCols ||
+        toRow < 0 || toRow >= numRows || toCol < 0 || toCol >= numCols)) // boundary condition
     {
         ChessPiece* piece = board.at(fromRow).at(fromCol);
         ChessPiece* capturePiece = board.at(toRow).at(toCol);

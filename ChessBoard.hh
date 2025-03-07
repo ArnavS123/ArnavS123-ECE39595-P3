@@ -36,6 +36,9 @@ namespace Student
          */
         ChessBoard(int numRow, int numCol);
 
+        // The instructor did not provide this, not sure if we need this but everythin is "working" with it so here it is
+        ~ChessBoard();
+
         /**
          * @return
          * Number of rows in chess board.
