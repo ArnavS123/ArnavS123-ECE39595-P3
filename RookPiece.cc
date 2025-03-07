@@ -37,10 +37,10 @@ bool RookPiece::canMoveToLocation(int toRow, int toCol)
     
             if(board.getPiece(tempRow, currCol) != nullptr)
             {
-                if (tempRow == toRow) // This is the end of our loop, if there is an enemy there, we can move and kill it
-                {
-                    return(true);
-                }
+                // if (tempRow == toRow) // This is the end of our loop, if there is an enemy there, we can move and kill it
+                // {
+                //     return(true);
+                // }
                 return false;
             }
         }
@@ -63,10 +63,10 @@ bool RookPiece::canMoveToLocation(int toRow, int toCol)
     
             if(board.getPiece(currRow, tempCol) != nullptr)
             {
-                if (tempCol == toCol) // This is the end of our loop, if there is an enemy there, we can move and kill it
-                {
-                    return(true);
-                }
+                // if (tempCol == toCol) // This is the end of our loop, if there is an enemy there, we can move and kill it
+                // {
+                //     return(true);
+                // }
                 return false;
             }
         }
