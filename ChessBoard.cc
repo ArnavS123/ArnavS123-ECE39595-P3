@@ -68,8 +68,8 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
     if (!(fromRow < 0 || fromRow >= numRows || fromCol < 0 || fromCol >= numCols ||
         toRow < 0 || toRow >= numRows || toCol < 0 || toCol >= numCols)) // boundary condition
     {
-        ChessPiece* piece = board.at(fromRow).at(fromCol);
-        ChessPiece* capturePiece = board.at(toRow).at(toCol);
+        ChessPiece* piece = getPiece(fromRow, fromCol);
+        ChessPiece* capturePiece = getPiece(toRow, toCol);
         // if there does exist a piece to where we wanna move, make sure its not the same color
         if (capturePiece == nullptr || capturePiece->getColor() != piece->getColor()) // capture condition
         {
