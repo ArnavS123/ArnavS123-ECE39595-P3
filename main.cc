@@ -49,38 +49,32 @@ void unit_isValidMove_bishop_one() {
 
 void something()
 {
-    Student::ChessBoard sBoard(4, 4);
+    Student::ChessBoard sBoard(6, 6);
 
     // Creating chess pieces
-    sBoard.createChessPiece(Black, Rook, 3, 2);
-    sBoard.createChessPiece(White, Pawn, 3, 1);
+    sBoard.createChessPiece(Black, Bishop, 3, 3);
+    sBoard.createChessPiece(Black, Bishop, 2, 5);
+    sBoard.createChessPiece(Black, Bishop, 1, 5);
+    sBoard.createChessPiece(Black, Bishop, 0, 3);
+    sBoard.createChessPiece(White, Pawn, 2, 2);
     sBoard.createChessPiece(Black, Pawn, 1, 0);
-    sBoard.createChessPiece(Black, Rook, 1, 0);
 
-    // Perform isValidScan
-    sBoard.isValidScan();
+    std::cout << sBoard.displayBoard().str();
 
     // Moving pieces
-    sBoard.movePiece(3, 1, 2, 1);
-    sBoard.movePiece(1, 0, 3, 0);
-    sBoard.movePiece(2, 1, 0, 1);
-    sBoard.movePiece(3, 2, 1, 2);
-    sBoard.movePiece(2, 2, 2, 0);
+    sBoard.movePiece(2, 2, 1, 2);
+    sBoard.movePiece(3, 3, 2, 2);
+    sBoard.movePiece(1, 2, 0, 3);
+    sBoard.movePiece(1, 5, 0, 4);
+    sBoard.movePiece(5, 4, 4, 2);
+    sBoard.movePiece(1, 1, 3, 1);
+    sBoard.movePiece(2, 5, 4, 0);
+    sBoard.movePiece(5, 5, 4, 0);
+    sBoard.movePiece(4, 1, 1, 2);
+    sBoard.movePiece(2, 2, 0, 0);
+    sBoard.movePiece(4, 2, 3, 1);
 
-    // Perform isValidScan again
-    sBoard.isValidScan();
-
-    // More moves
-    sBoard.movePiece(2, 1, 2, 1);
-
-    // Perform isValidScan again
-    sBoard.isValidScan();
-
-    // Final move
-    sBoard.movePiece(0, 0, 3, 3);
-
-    // Perform final isValidScan
-    sBoard.isValidScan();
+    std::cout << sBoard.displayBoard().str();
 }
 
 int main()

@@ -81,7 +81,7 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
             return piece->canMoveToLocation(toRow, toCol);
         }
     }
-    return(false); // if we fail boundary condition AND fail capture condition
+    return(false); // if we fail boundary condition OR fail capture condition
 }
 
 bool ChessBoard::movePiece(int fromRow, int fromCol, int toRow, int toCol)

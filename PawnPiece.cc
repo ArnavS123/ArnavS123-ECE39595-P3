@@ -1,7 +1,7 @@
 #include "PawnPiece.hh"
 #include "ChessBoard.hh"
 #include "ChessPiece.hh"
-
+#include <cmath>
 using Student::PawnPiece;
 
 PawnPiece::PawnPiece(ChessBoard &board, Color color, int row, int column) : ChessPiece(board, color, row, column), first_move(true)
@@ -25,11 +25,11 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
     int dir; //direction that the pawn is moving
     if(color == White)
     {
-        dir = -1; // up
+        dir = -1; //up 
     }
     else
     {
-        dir = 1; // down
+        dir = 1; //down
     }
 
     //note: only have to worry about row currently
@@ -44,7 +44,23 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
                 return(true);
             }
         }
-        if(rowSpace == 2*dir && first_move == true) //two steps (ensure that this is the first move)
+
+	if(rowSpace == 2*dir) 
+	{
+	   if(board.getPiece(toRow, toCol) == nullptr && board.getPiece(toRow - dir,toCol) == nullptr)
+	   {		   
+	      if(color == Black && currRow == 1) 
+	      {
+	        return true;
+	      }
+	      else if(color == White && currRow == (board.getNumRows() - 2))
+	      {
+		return true;
+	      }
+	   } 
+	}	
+
+        /*if(rowSpace == 2*dir && first_move == true) //two steps (ensure that this is the first move)
         {
             // 2nd condition is VERY IMP to implement going forward
             // we cannot move to a space if another piece is in the way
@@ -54,10 +70,10 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
                 first_move = false; // Unsure if this goes here, but this seems like the best spot
                 return(true);
             }
-        }
+        }*/
     }
     // Capture piece
-    else if (abs(toCol - currCol) == 1 && toRow - currRow == dir) // diagonal
+    if ((abs(toCol - currCol) == 1) && (toRow - currRow == dir)) // diagonal
     {
         ChessPiece *deadPiece = board.getPiece(toRow, toCol);
         if (deadPiece != nullptr && color != deadPiece->getColor())
