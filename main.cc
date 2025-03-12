@@ -52,46 +52,35 @@ void something()
     Student::ChessBoard sBoard(4, 4);
 
     // Creating chess pieces
-    sBoard.createChessPiece(White, Rook, 3, 2);
-    sBoard.createChessPiece(Black, Bishop, 1, 3);
-    sBoard.createChessPiece(Black, Rook, 1, 1);
-    sBoard.createChessPiece(White, Rook, 2, 3);
+    sBoard.createChessPiece(Black, Rook, 3, 2);
+    sBoard.createChessPiece(White, Pawn, 3, 1);
+    sBoard.createChessPiece(Black, Pawn, 1, 0);
+    sBoard.createChessPiece(Black, Rook, 1, 0);
 
     // Perform isValidScan
-    //sBoard.isValidScan();
+    sBoard.isValidScan();
 
     // Moving pieces
-    sBoard.movePiece(3, 2, 3, 1);
-    sBoard.movePiece(1, 1, 1, 2);
-    sBoard.movePiece(2, 3, 2, 1);
-    sBoard.movePiece(1, 2, 0, 2);
-    sBoard.movePiece(0, 0, 2, 3);
+    sBoard.movePiece(3, 1, 2, 1);
+    sBoard.movePiece(1, 0, 3, 0);
+    sBoard.movePiece(2, 1, 0, 1);
+    sBoard.movePiece(3, 2, 1, 2);
+    sBoard.movePiece(2, 2, 2, 0);
 
     // Perform isValidScan again
-    //sBoard.isValidScan();
+    sBoard.isValidScan();
 
     // More moves
-    // sBoard.movePiece(2, 1, 0, 1);
-    // sBoard.movePiece(1, 3, 2, 2);
-    // sBoard.movePiece(3, 1, 3, 0);
-    // sBoard.movePiece(2, 2, 3, 1);
-    // sBoard.movePiece(0, 2, 1, 0);
+    sBoard.movePiece(2, 1, 2, 1);
 
-    // // Perform isValidScan again
-    // //sBoard.isValidScan();
+    // Perform isValidScan again
+    sBoard.isValidScan();
 
-    // // More moves
-    // sBoard.movePiece(3, 0, 3, 1);
-    // sBoard.movePiece(0, 2, 2, 2);
-    // sBoard.movePiece(3, 1, 3, 0);
-    // sBoard.movePiece(2, 2, 1, 2);
-    // sBoard.movePiece(1, 1, 2, 3);
+    // Final move
+    sBoard.movePiece(0, 0, 3, 3);
 
-    // // Perform final isValidScan
-    // //sBoard.isValidScan();
-
-    // // Final move
-    // sBoard.movePiece(3, 0, 0, 0);
+    // Perform final isValidScan
+    sBoard.isValidScan();
 }
 
 int main()

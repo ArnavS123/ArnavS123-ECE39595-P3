@@ -86,39 +86,43 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
 
 bool ChessBoard::movePiece(int fromRow, int fromCol, int toRow, int toCol)
 {
-    if (isValidMove(fromRow, fromCol, toRow, toCol) == false)
-    {
-        return(false);
-    }
-
-    ChessPiece* pieceToMove = getPiece(fromRow, fromCol);
-    if (pieceToMove == nullptr) 
-    {
-        return false; // No piece at (fromRow, fromCol)
-    }
-    
-    if(pieceToMove->getColor() != turn)
-    {
-        return false;
-    }
-
-    delete board.at(toRow).at(toCol);
-    board.at(toRow).at(toCol) = pieceToMove;
-
-    board.at(fromRow).at(fromCol) = nullptr;
-
-    pieceToMove->setPosition(toRow, toCol);
-
-    if (turn == White)
-    {
-        turn = Black;
-    }
-    else // turn == Black
-    {
-        turn = White;
-    }
-
     return(true);
+    // if (isValidMove(fromRow, fromCol, toRow, toCol) == false)
+    // {
+    //     return(false);
+    // }
+
+    // ChessPiece* pieceToMove = getPiece(fromRow, fromCol);
+    // if (pieceToMove == nullptr) 
+    // {
+    //     return false; // No piece at (fromRow, fromCol)
+    // }
+    
+    // if(pieceToMove->getColor() != turn)
+    // {
+    //     return false;
+    // }
+
+    // if (board.at(toRow).at(toCol) != nullptr) // if there is a piece there (isValidMove already checks for color)
+    // {
+    //     delete board.at(toRow).at(toCol);
+    // }
+    // board.at(toRow).at(toCol) = pieceToMove;
+
+    // board.at(fromRow).at(fromCol) = nullptr;
+
+    // pieceToMove->setPosition(toRow, toCol);
+
+    // if (turn == White)
+    // {
+    //     turn = Black;
+    // }
+    // else // turn == Black
+    // {
+    //     turn = White;
+    // }
+
+    // return(true);
 }
 
 bool ChessBoard::isPieceUnderThreat(int row, int col)
@@ -130,22 +134,22 @@ bool ChessBoard::isPieceUnderThreat(int row, int col)
     // if a single "collision" is found, stop the function, return true
     // else false
 
-    ChessPiece* currPiece = getPiece(row, col);
+    // ChessPiece* currPiece = getPiece(row, col);
 
-    for (int i = 0; i < numRows; i++)
-    {
-        for (int j = 0; j < numCols; j++)
-        {
-            ChessPiece* piece = getPiece(i,j);
-            if(piece != nullptr && piece->getColor() != currPiece->getColor())
-            {
-                if(isValidMove(i, j, row, col)) //piece can move to curr pos (under threat)
-                {
-                    return true;
-                }
-            }
-        }
-    }
+    // for (int i = 0; i < numRows; i++)
+    // {
+    //     for (int j = 0; j < numCols; j++)
+    //     {
+    //         ChessPiece* piece = getPiece(i,j);
+    //         if(piece != nullptr && piece->getColor() != currPiece->getColor())
+    //         {
+    //             if(isValidMove(i, j, row, col)) //piece can move to curr pos (under threat)
+    //             {
+    //                 return true;
+    //             }
+    //         }
+    //     }
+    // }
 
     return(false); //no piece can attack
 }
