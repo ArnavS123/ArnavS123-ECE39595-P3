@@ -25,11 +25,11 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
     int dir; //direction that the pawn is moving
     if(color == White)
     {
-        dir = 1; // up
+        dir = -1; // up
     }
     else
     {
-        dir = -1; // down
+        dir = 1; // down
     }
 
     //note: only have to worry about row currently

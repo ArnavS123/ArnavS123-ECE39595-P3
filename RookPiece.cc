@@ -19,6 +19,7 @@ bool RookPiece::canMoveToLocation(int toRow, int toCol)
         return false;
     }
 
+
     // Vertical
     if(toCol == currCol)
     {
@@ -70,6 +71,10 @@ bool RookPiece::canMoveToLocation(int toRow, int toCol)
                 return false;
             }
         }
+    }
+    else
+    {
+	    return false; //if col and row both move
     }
     
     return(true);
