@@ -69,6 +69,11 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
         toRow < 0 || toRow >= numRows || toCol < 0 || toCol >= numCols)) // boundary condition
     {
         ChessPiece* piece = getPiece(fromRow, fromCol);
+        if (piece == nullptr) 
+        {
+            return false; // No piece at (fromRow, fromCol)
+        }
+
         ChessPiece* capturePiece = getPiece(toRow, toCol);
         // if there does exist a piece to where we wanna move, make sure its not the same color
         if (capturePiece == nullptr || capturePiece->getColor() != piece->getColor()) // capture condition
@@ -87,6 +92,10 @@ bool ChessBoard::movePiece(int fromRow, int fromCol, int toRow, int toCol)
     }
 
     ChessPiece* pieceToMove = getPiece(fromRow, fromCol);
+    if (pieceToMove == nullptr) 
+    {
+        return false; // No piece at (fromRow, fromCol)
+    }
     
     if(pieceToMove->getColor() != turn)
     {

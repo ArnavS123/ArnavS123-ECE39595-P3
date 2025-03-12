@@ -2,6 +2,7 @@
 #include "Chess.h"
 #include "ChessBoard.hh"
 #include "ChessPiece.hh"
+#include <iostream>
 
 void test_part1_4x4_1()
 {
@@ -31,16 +32,70 @@ void test_part1_4x4_1()
 void unit_isValidMove_bishop_one() {
     Student::ChessBoard board(4, 4);
     board.createChessPiece(White, Bishop, 0, 0);
-    board.createChessPiece(White, Bishop, 1, 1);
+    board.createChessPiece(Black, Bishop, 1, 1);
+    board.createChessPiece(Black, Bishop, 0, 3);
     // assert(board.isValidMove(0, 0, 3, 3));
     // assert(!board.isValidMove(0, 0, 1, 2));
     // assert(!board.isValidMove(0, 0, -1, -1));
-    // assert(board.movePiece(0, 0, 3, 3));
-    assert(board.isPieceUnderThreat(0, 0));
+    std::cout << board.displayBoard().str();
+    assert(board.movePiece(0, 0, 1, 1));
+    assert(!(board.isPieceUnderThreat(1, 1)));
+    std::cout << board.displayBoard().str();
+    assert(board.movePiece(0, 3, 1, 2));
+    std::cout << board.displayBoard().str();
+    assert(board.movePiece(1, 1, 2, 2));
+    std::cout << board.displayBoard().str();
+}
+
+void something()
+{
+    Student::ChessBoard sBoard(4, 4);
+
+    // Creating chess pieces
+    sBoard.createChessPiece(White, Rook, 3, 2);
+    sBoard.createChessPiece(Black, Bishop, 1, 3);
+    sBoard.createChessPiece(Black, Rook, 1, 1);
+    sBoard.createChessPiece(White, Rook, 2, 3);
+
+    // Perform isValidScan
+    //sBoard.isValidScan();
+
+    // Moving pieces
+    sBoard.movePiece(3, 2, 3, 1);
+    sBoard.movePiece(1, 1, 1, 2);
+    sBoard.movePiece(2, 3, 2, 1);
+    sBoard.movePiece(1, 2, 0, 2);
+    sBoard.movePiece(0, 0, 2, 3);
+
+    // Perform isValidScan again
+    //sBoard.isValidScan();
+
+    // More moves
+    // sBoard.movePiece(2, 1, 0, 1);
+    // sBoard.movePiece(1, 3, 2, 2);
+    // sBoard.movePiece(3, 1, 3, 0);
+    // sBoard.movePiece(2, 2, 3, 1);
+    // sBoard.movePiece(0, 2, 1, 0);
+
+    // // Perform isValidScan again
+    // //sBoard.isValidScan();
+
+    // // More moves
+    // sBoard.movePiece(3, 0, 3, 1);
+    // sBoard.movePiece(0, 2, 2, 2);
+    // sBoard.movePiece(3, 1, 3, 0);
+    // sBoard.movePiece(2, 2, 1, 2);
+    // sBoard.movePiece(1, 1, 2, 3);
+
+    // // Perform final isValidScan
+    // //sBoard.isValidScan();
+
+    // // Final move
+    // sBoard.movePiece(3, 0, 0, 0);
 }
 
 int main()
 {
-    unit_isValidMove_bishop_one();
+    something();//unit_isValidMove_bishop_one();
     return EXIT_SUCCESS;
 }
