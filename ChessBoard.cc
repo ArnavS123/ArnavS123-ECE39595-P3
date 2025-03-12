@@ -86,43 +86,42 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
 
 bool ChessBoard::movePiece(int fromRow, int fromCol, int toRow, int toCol)
 {
-    return(true);
-    // if (isValidMove(fromRow, fromCol, toRow, toCol) == false)
-    // {
-    //     return(false);
-    // }
+    if (isValidMove(fromRow, fromCol, toRow, toCol) == false)
+    {
+        return(false);
+    }
 
-    // ChessPiece* pieceToMove = getPiece(fromRow, fromCol);
-    // if (pieceToMove == nullptr) 
-    // {
-    //     return false; // No piece at (fromRow, fromCol)
-    // }
+    ChessPiece* pieceToMove = getPiece(fromRow, fromCol);
+    if (pieceToMove == nullptr) 
+    {
+        return false; // No piece at (fromRow, fromCol)
+    }
     
-    // if(pieceToMove->getColor() != turn)
-    // {
-    //     return false;
-    // }
+    if(pieceToMove->getColor() != turn)
+    {
+        return false;
+    }
 
-    // if (board.at(toRow).at(toCol) != nullptr) // if there is a piece there (isValidMove already checks for color)
-    // {
-    //     delete board.at(toRow).at(toCol);
-    // }
-    // board.at(toRow).at(toCol) = pieceToMove;
+    if (board.at(toRow).at(toCol) != nullptr) // if there is a piece there (isValidMove already checks for color)
+    {
+        delete board.at(toRow).at(toCol);
+    }
+    board.at(toRow).at(toCol) = pieceToMove;
 
-    // board.at(fromRow).at(fromCol) = nullptr;
+    board.at(fromRow).at(fromCol) = nullptr;
 
-    // pieceToMove->setPosition(toRow, toCol);
+    pieceToMove->setPosition(toRow, toCol);
 
-    // if (turn == White)
-    // {
-    //     turn = Black;
-    // }
-    // else // turn == Black
-    // {
-    //     turn = White;
-    // }
+    if (turn == White)
+    {
+        turn = Black;
+    }
+    else // turn == Black
+    {
+        turn = White;
+    }
 
-    // return(true);
+    return(true);
 }
 
 bool ChessBoard::isPieceUnderThreat(int row, int col)
