@@ -133,22 +133,26 @@ bool ChessBoard::isPieceUnderThreat(int row, int col)
     // if a single "collision" is found, stop the function, return true
     // else false
 
-    // ChessPiece* currPiece = getPiece(row, col);
+    ChessPiece* currPiece = getPiece(row, col);
+    if (currPiece == nullptr) 
+    {
+        return false; // No piece at (row, col)
+    }
 
-    // for (int i = 0; i < numRows; i++)
-    // {
-    //     for (int j = 0; j < numCols; j++)
-    //     {
-    //         ChessPiece* piece = getPiece(i,j);
-    //         if(piece != nullptr && piece->getColor() != currPiece->getColor())
-    //         {
-    //             if(isValidMove(i, j, row, col)) //piece can move to curr pos (under threat)
-    //             {
-    //                 return true;
-    //             }
-    //         }
-    //     }
-    // }
+    for (int i = 0; i < numRows; i++)
+    {
+        for (int j = 0; j < numCols; j++)
+        {
+            ChessPiece* piece = getPiece(i,j);
+            if(piece != nullptr && piece->getColor() != currPiece->getColor())
+            {
+                if(isValidMove(i, j, row, col)) //piece can move to curr pos (under threat)
+                {
+                    return true;
+                }
+            }
+        }
+    }
 
     return(false); //no piece can attack
 }
