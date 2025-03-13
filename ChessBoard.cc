@@ -27,7 +27,6 @@ ChessBoard::~ChessBoard()
     }
 }
 
-
 void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int startCol)
 {
     // Ensure it's within boundary
@@ -58,7 +57,7 @@ void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int start
     }
     if (piece == King)
     {
-        //board.at(startRow).at(startCol) = new KingPiece(*this, col, startRow, startCol);
+        board.at(startRow).at(startCol) = new KingPiece(*this, col, startRow, startCol);
     }
 }
 
