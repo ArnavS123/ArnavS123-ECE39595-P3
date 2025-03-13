@@ -77,7 +77,56 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
         // if there does exist a piece to where we wanna move, make sure its not the same color
         if (capturePiece == nullptr || capturePiece->getColor() != piece->getColor()) // capture condition
         {
-            return piece->canMoveToLocation(toRow, toCol);
+            bool king_safe = false;
+
+            // repeating code segment
+            int origin_row = piece->getRow();
+            int origin_col = piece->getColumn();
+
+            // removed delete (we are testing king safety right now)
+            board.at(toRow).at(toCol) = piece;
+            board.at(fromRow).at(fromCol) = nullptr;
+            piece->setPosition(toRow, toCol); // temp
+
+            // find king of turn's color
+            bool found_king = false;
+            int kingrow = 0;
+            int kingcol = 0;
+            for (int row = 0; row < numRows; row++)
+            {
+                for (int col = 0; col < numCols; col++)
+                {
+                    ChessPiece* maybeking = board.at(row).at(col);
+                    // this position has the king of the same color as turn (piece)
+                    if (maybeking != nullptr && maybeking->getType() == King && maybeking->getColor() == piece->getColor())
+                    {
+                        found_king = true;
+                        kingrow = row;
+                        kingcol = col;
+                        break; // time save (gradescope is slow)
+                    }
+                }
+            }
+
+            // if there is no king on the board OR if king is there but in danger bec of the move
+            if (found_king == false || isPieceUnderThreat(kingrow, kingcol))
+            {
+                king_safe = false;
+            }
+            else
+            {
+                king_safe = true;
+            }
+
+            board.at(fromRow).at(fromCol) = piece; // move original moving piece back
+            board.at(toRow).at(toCol) = capturePiece; // move original captured piece back
+            piece->setPosition(origin_row, origin_col); // reset pos of moving piece
+            // repeating code segment
+
+            if (king_safe == true)
+            {
+                return piece->canMoveToLocation(toRow, toCol);   
+            }
         }
     }
     return(false); // if we fail boundary condition OR fail capture condition
