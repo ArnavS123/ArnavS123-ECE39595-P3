@@ -127,6 +127,7 @@ bool ChessBoard::movePiece(int fromRow, int fromCol, int toRow, int toCol)
                 found_king = true;
                 kingrow = row;
                 kingcol = col;
+                break; // time save (gradescope is slow)
             }
         }
     }
@@ -136,16 +137,16 @@ bool ChessBoard::movePiece(int fromRow, int fromCol, int toRow, int toCol)
     {
         // revert
         board.at(fromRow).at(fromCol) = pieceToMove; // move original moving piece back
-        board.at(fromRow).at(fromCol) = pieceToCapture; // move original captured piece back
+        board.at(toRow).at(toCol) = pieceToCapture; // move original captured piece back
         pieceToMove->setPosition(origin_row, origin_col); // reset pos of moving piece
 
         return(false);
     }
 
     // if king = safe, we delete captured piece
-    if (board.at(toRow).at(toCol) != nullptr) // if there is a piece there (isValidMove already checks for color)
+    if (pieceToCapture != nullptr) // we do this differently, the position now holds the moving piece
     {
-        delete board.at(toRow).at(toCol);
+        delete(pieceToCapture);
     }
 
     // turn does not change if king in danger
