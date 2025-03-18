@@ -29,8 +29,8 @@ ChessBoard::~ChessBoard()
 
 void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int startCol)
 {
-    // Ensure it's within boundary
-    if (startRow < 0 && startRow >= numRows && startCol < 0 && startCol >= numCols)
+    // Ensure it's within boundary (changed && --> ||)
+    if (startRow < 0 || startRow >= numRows || startCol < 0 || startCol >= numCols)
     {
         return; // ERROR
     }
@@ -125,7 +125,7 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
 
             if (king_safe == true)
             {
-                return piece->canMoveToLocation(toRow, toCol);   
+                return piece->canMoveToLocation(toRow, toCol);
             }
         }
     }
@@ -150,53 +150,57 @@ bool ChessBoard::movePiece(int fromRow, int fromCol, int toRow, int toCol)
         return false;
     }
 
-    // get original position of our piece (we want to revert changes IF king is in danger)
-    int origin_row = pieceToMove->getRow();
-    int origin_col = pieceToMove->getColumn();
+    // // get original position of our piece (we want to revert changes IF king is in danger)
+    // int origin_row = pieceToMove->getRow();
+    // // int origin_col = pieceToMove->getColumn();
 
-    ChessPiece* pieceToCapture = getPiece(toRow, toCol); // could be nullptr (does not matter)
+    // ChessPiece* pieceToCapture = getPiece(toRow, toCol); // could be nullptr (does not matter)
 
     // removed delete (we are testing king safety right now)
+    if (board.at(toRow).at(toCol) != nullptr) // if there is a piece there (isValidMove already checks for color)
+    {
+        delete board.at(toRow).at(toCol);
+    }
     board.at(toRow).at(toCol) = pieceToMove;
     board.at(fromRow).at(fromCol) = nullptr;
     pieceToMove->setPosition(toRow, toCol); // temp
 
-    // find king of turn's color
-    bool found_king = false;
-    int kingrow = 0;
-    int kingcol = 0;
-    for (int row = 0; row < numRows; row++)
-    {
-        for (int col = 0; col < numCols; col++)
-        {
-            ChessPiece* maybeking = board.at(row).at(col);
-            // this position has the king of the same color as turn (pieceToMove)
-            if (maybeking != nullptr && maybeking->getType() == King && maybeking->getColor() == pieceToMove->getColor())
-            {
-                found_king = true;
-                kingrow = row;
-                kingcol = col;
-                break; // time save (gradescope is slow)
-            }
-        }
-    }
+    // // find king of turn's color
+    // bool found_king = false;
+    // int kingrow = 0;
+    // int kingcol = 0;
+    // for (int row = 0; row < numRows; row++)
+    // {
+    //     for (int col = 0; col < numCols; col++)
+    //     {
+    //         ChessPiece* maybeking = board.at(row).at(col);
+    //         // this position has the king of the same color as turn (pieceToMove)
+    //         if (maybeking != nullptr && maybeking->getType() == King && maybeking->getColor() == pieceToMove->getColor())
+    //         {
+    //             found_king = true;
+    //             kingrow = row;
+    //             kingcol = col;
+    //             break; // time save (gradescope is slow)
+    //         }
+    //     }
+    // }
 
-    // if there is no king on the board OR if king is there but in danger bec of the move
-    if (found_king == false || isPieceUnderThreat(kingrow, kingcol))
-    {
-        // revert
-        board.at(fromRow).at(fromCol) = pieceToMove; // move original moving piece back
-        board.at(toRow).at(toCol) = pieceToCapture; // move original captured piece back
-        pieceToMove->setPosition(origin_row, origin_col); // reset pos of moving piece
+    // // if there is no king on the board OR if king is there but in danger bec of the move
+    // if (found_king == false || isPieceUnderThreat(kingrow, kingcol))
+    // {
+    //     // revert
+    //     board.at(fromRow).at(fromCol) = pieceToMove; // move original moving piece back
+    //     board.at(toRow).at(toCol) = pieceToCapture; // move original captured piece back
+    //     pieceToMove->setPosition(origin_row, origin_col); // reset pos of moving piece
 
-        return(false);
-    }
+    //     return(false);
+    // }
 
-    // if king = safe, we delete captured piece
-    if (pieceToCapture != nullptr) // we do this differently, the position now holds the moving piece
-    {
-        delete(pieceToCapture);
-    }
+    // // if king = safe, we delete captured piece
+    // if (pieceToCapture != nullptr) // we do this differently, the position now holds the moving piece
+    // {
+    //     delete(pieceToCapture);
+    // }
 
     // turn does not change if king in danger
     if (turn == White)
