@@ -98,7 +98,7 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                 {
                     ChessPiece* maybeking = board.at(row).at(col);
                     // this position has the king of the same color as turn (piece)
-                    if (maybeking != nullptr && maybeking->getType() == King && maybeking->getColor() == piece->getColor())
+                    if (maybeking != nullptr && maybeking->getType() == King && maybeking->getColor() == turn)
                     {
                         found_king = true;
                         kingrow = row;
