@@ -7,17 +7,17 @@ ChessPiece::ChessPiece(ChessBoard &board, Color color, int row, int column) : bo
 {
 }
 
-Color ChessPiece::getColor() 
+Color ChessPiece::getColor() const
 {
     return color;
 }
 
-int ChessPiece::getRow() 
+int ChessPiece::getRow() const
 {
     return row;
 }
 
-int ChessPiece::getColumn() 
+int ChessPiece::getColumn() const
 {
     return column;
 }

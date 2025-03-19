@@ -40,7 +40,7 @@
      * @return
      * Colour of piece.
      */
-    Color getColor();
+    Color getColor() const;
 
     /**
      * @return
@@ -56,13 +56,13 @@
      * @return
      * Current row number of piece.
      */
-    int getRow();
+    int getRow() const;
 
     /**
      * @return
      * Current column number of piece.
      */
-    int getColumn();
+    int getColumn() const;
 
     /**
      * @brief Sets row and column numbers of piece.
@@ -85,6 +85,9 @@
      * A boolean indicating if a move from current to destination is valid.
      */
     virtual bool canMoveToLocation(int toRow, int toColumn) = 0;
+
+    // deep copy constructor
+    virtual ChessPiece* copy(ChessBoard &newBoard) const = 0;
 
     /**
      * @brief

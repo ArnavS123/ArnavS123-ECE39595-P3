@@ -8,6 +8,11 @@ RookPiece::RookPiece(ChessBoard &board, Color color, int row, int column) : Ches
 {
 }
 
+Student::ChessPiece* RookPiece::copy(ChessBoard &newBoard) const
+{
+    return new RookPiece(newBoard, this->getColor(), this->getRow(), this->getColumn());
+}
+
 bool RookPiece::canMoveToLocation(int toRow, int toCol)
 {
     int currRow = getRow();

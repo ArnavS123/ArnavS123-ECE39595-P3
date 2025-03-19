@@ -13,6 +13,7 @@ namespace Student
     {
         public:
             BishopPiece(ChessBoard &board, Color color, int row, int column);
+            virtual ChessPiece* copy(ChessBoard &newBoard) const override;
             virtual Type getType() override {return Bishop;}
             virtual bool canMoveToLocation(int toRow, int toCol) override;
             virtual const char *toString() override;

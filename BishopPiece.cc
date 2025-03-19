@@ -8,6 +8,11 @@ BishopPiece::BishopPiece(ChessBoard &board, Color color, int row, int column) : 
 {
 }
 
+Student::ChessPiece* BishopPiece::copy(ChessBoard &newBoard) const
+{
+    return new BishopPiece(newBoard, this->getColor(), this->getRow(), this->getColumn());
+}
+
 bool BishopPiece::canMoveToLocation(int toRow, int toCol)
 {
     int currRow = getRow();

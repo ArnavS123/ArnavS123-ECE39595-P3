@@ -8,6 +8,11 @@ KingPiece::KingPiece(ChessBoard &board, Color color, int row, int column) : Ches
 {
 }
 
+Student::ChessPiece* KingPiece::copy(ChessBoard &newBoard) const
+{
+    return new KingPiece(newBoard, this->getColor(), this->getRow(), this->getColumn());
+}
+
 bool KingPiece::canMoveToLocation(int toRow, int toCol)
 {
     int currRow = getRow();

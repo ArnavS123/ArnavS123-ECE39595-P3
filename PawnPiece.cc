@@ -8,6 +8,11 @@ PawnPiece::PawnPiece(ChessBoard &board, Color color, int row, int column) : Ches
 {
 }
 
+Student::ChessPiece* PawnPiece::copy(ChessBoard &newBoard) const
+{
+    return new PawnPiece(newBoard, this->getColor(), this->getRow(), this->getColumn());
+}
+
 //pawn can move up and down depending on color by one square (remember: pawn can move two spaces from starting pos)
 bool PawnPiece::canMoveToLocation(int toRow, int toCol)
 {
@@ -55,7 +60,7 @@ bool PawnPiece::canMoveToLocation(int toRow, int toCol)
 	      }
 	      else if(color == White && currRow == (board.getNumRows() - 2))
 	      {
-		return true;
+		    return true;
 	      }
 	   } 
 	}	

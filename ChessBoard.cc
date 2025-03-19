@@ -11,6 +11,21 @@ board(numRows, std::vector<ChessPiece*>(numCols, nullptr))
 {
 }
 
+ChessBoard::ChessBoard(const ChessBoard &other) : numRows(other.numRows), numCols(other.numCols), turn(other.turn), board(numRows, std::vector<ChessPiece*>(numCols, nullptr))
+{
+    for (int i = 0; i < numRows; i++)
+    {
+        for (int j = 0; j < numCols; j++)
+        {
+            if (other.board.at(i).at(j) != nullptr)
+            {
+                // Clone the piece from the original board and associate it with *this.
+                board.at(i).at(j) = other.board.at(i).at(j)->copy(*this);
+            }
+        }
+    }
+}
+
 // added implementation
 ChessBoard::~ChessBoard()
 {
@@ -81,20 +96,19 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
         // if there does exist a piece to where we wanna move, make sure its not the same color
         if (capturePiece == nullptr || capturePiece->getColor() != piece->getColor()) // capture condition
         {
+            ChessBoard tempBoard(*this);  //use copy constructor
+            ChessPiece* tempPiece = tempBoard.getPiece(fromRow, fromCol);
+            
             bool king_safe = false;
-            Type deadpiece_type = King; //random initial
-            Color deadpiece_color = White;
-
-            if (capturePiece != nullptr) // saving info
+            
+            if (tempBoard.board.at(toRow).at(toCol) != nullptr) 
             {
-                deadpiece_type = capturePiece->getType();
-                deadpiece_color = capturePiece->getColor();
+                delete tempBoard.board.at(toRow).at(toCol);
             }
 
-            delete capturePiece;
-            board.at(toRow).at(toCol) = piece;
-            board.at(fromRow).at(fromCol) = nullptr;
-            piece->setPosition(toRow, toCol); // temp
+            tempBoard.board.at(toRow).at(toCol) = tempPiece;
+            tempBoard.board.at(fromRow).at(fromCol) = nullptr;
+            tempPiece->setPosition(toRow, toCol); // temp
 
             // find king of turn's color
             bool found_king = false;
@@ -104,7 +118,7 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
             {
                 for (int col = 0; col < numCols; col++)
                 {
-                    ChessPiece* maybeking = board.at(row).at(col);
+                    ChessPiece* maybeking = tempBoard.getPiece(row,col);
                     // this position has the king of the same color as turn
                     if (maybeking != nullptr && maybeking->getType() == King && maybeking->getColor() == turn)
                     {
@@ -121,7 +135,7 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
             }
 
             // if there is no king on the board OR if king is there but in danger bec of the move
-            if (found_king == false || !(isPieceUnderThreat(kingrow, kingcol)))
+            if (found_king == false || !(tempBoard.isPieceUnderThreat(kingrow, kingcol)))
             {
                 king_safe = true;
             }
@@ -129,15 +143,6 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
             {
                 king_safe = false;
             }
-
-            board.at(fromRow).at(fromCol) = piece; // move original moving piece back
-            if (capturePiece != nullptr)
-            {
-                createChessPiece(deadpiece_color, deadpiece_type, toRow, toCol); // recreate deleted piece
-            }
-            ChessPiece* new_capturePiece = getPiece(toRow, toCol); // redeclare
-            new_capturePiece->setPosition(toRow, toCol); // reset pos of capture piece
-            piece->setPosition(fromRow, fromCol); // reset pos of moving piece
 
             if (king_safe == true)
             {

@@ -35,6 +35,7 @@ namespace Student
          * Number of columns of the chessboard
          */
         ChessBoard(int numRow, int numCol);
+        ChessBoard(const ChessBoard &other); // copy constructor
 
         // The instructor did not provide this, not sure if we need this but everythin is "working" with it so here it is
         ~ChessBoard();
