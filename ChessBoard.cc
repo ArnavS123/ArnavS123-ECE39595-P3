@@ -4,6 +4,8 @@
 #include "BishopPiece.hh"
 #include "KingPiece.hh"
 
+#include <iostream> ///////////////////////////////////////////////////////////////////////////////////////////////
+
 using Student::ChessBoard;
 
 ChessBoard::ChessBoard(int num_row, int num_col) : numRows(num_row), numCols(num_col), turn(White),
@@ -61,6 +63,10 @@ void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int start
     }
 }
 
+//////////
+// NOTE FOR LATER: THREAT FUNCTION IS CALLING ISVALIDMOVE AND ISVALIDMOVE FUNCTION IS CALLING THREAT FUNCTION
+//////////
+
 bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
 {
     // = because numRows and numCols tell us how many and we start from 0
@@ -106,7 +112,12 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                         break; // time save (gradescope is slow)
                     }
                 }
+                if (kingrow != 0)
+                {
+                    break;
+                }
             }
+            std::cout << kingrow << kingcol << std::endl;
 
             // if there is no king on the board OR if king is there but in danger bec of the move
             if (found_king == false || isPieceUnderThreat(kingrow, kingcol))
@@ -127,6 +138,10 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
             {
                 return piece->canMoveToLocation(toRow, toCol);
             }
+            else
+            {
+                return(false);
+            }
         }
     }
     return(false); // if we fail boundary condition OR fail capture condition
@@ -136,11 +151,12 @@ bool ChessBoard::movePiece(int fromRow, int fromCol, int toRow, int toCol)
 {
     if (isValidMove(fromRow, fromCol, toRow, toCol) == false)
     {
+        std::cout << fromRow << fromCol << "-->" << toRow << toCol << std::endl;
         return(false);
     }
 
     ChessPiece* pieceToMove = getPiece(fromRow, fromCol);
-    if (pieceToMove == nullptr) 
+    if (pieceToMove == nullptr)
     {
         return false; // No piece at (fromRow, fromCol)
     }
