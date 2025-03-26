@@ -4,8 +4,6 @@
 #include "BishopPiece.hh"
 #include "KingPiece.hh"
 
-#include <iostream> ///////////////////////////////////////////////////////////////////////////////////////////////
-
 using Student::ChessBoard;
 
 ChessBoard::ChessBoard(int num_row, int num_col) : numRows(num_row), numCols(num_col), turn(White),
@@ -135,7 +133,6 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                     break; // more time save
                 }
             }
-            std::cout << kingrow << kingcol << std::endl;
 
             // if there is no king on the board OR if king is there but in danger bec of the move
             if (found_king == false || !(tempBoard.isPieceUnderThreat(kingrow, kingcol)))
@@ -164,7 +161,6 @@ bool ChessBoard::movePiece(int fromRow, int fromCol, int toRow, int toCol)
 {
     if (isValidMove(fromRow, fromCol, toRow, toCol) == false)
     {
-        std::cout << fromRow << fromCol << "-->" << toRow << toCol << std::endl;
         return(false);
     }
 
