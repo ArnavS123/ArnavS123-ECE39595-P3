@@ -222,7 +222,8 @@ bool ChessBoard::isPieceUnderThreat(int row, int col)
             ChessPiece* piece = getPiece(i,j);
             if(piece != nullptr && piece->getColor() != currPiece->getColor())
             {
-                if(isValidMove(i, j, row, col)) //piece can move to curr pos (under threat)
+                //if(isValidMove(i, j, row, col)) //piece can move to curr pos (under threat)
+                if (piece->canMoveToLocation(row, col))
                 {
                     return true;
                 }
