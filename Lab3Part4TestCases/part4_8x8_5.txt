@@ -1,0 +1,28 @@
+1
+8 8
+w p 2 7
+w b 6 0
+b p 1 5
+w p 6 6
+b b 2 0
+w b 4 6
+w b 7 6
+b b 2 3
+b k 0 4
+w k 7 4
+b r 0 0
+b r 0 7
+w r 7 0
+w r 7 7
+~
+isValidScan
+movePiece 7 4 6 3
+isValidScan
+movePiece 2 3 0 5
+isValidScan
+movePiece 4 6 0 2
+isValidScan
+movePiece 1 1 6 2
+isValidScan
+movePiece 0 5 1 6
+isValidScan
