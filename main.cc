@@ -29,115 +29,29 @@ void test_part1_4x4_1()
     return;
 }
 
-void unit_isValidMove_bishop_one() {
-    Student::ChessBoard board(4, 4);
-    board.createChessPiece(White, Bishop, 0, 0);
-    board.createChessPiece(Black, Bishop, 1, 1);
-    board.createChessPiece(Black, Bishop, 0, 3);
-    // assert(board.isValidMove(0, 0, 3, 3));
-    // assert(!board.isValidMove(0, 0, 1, 2));
-    // assert(!board.isValidMove(0, 0, -1, -1));
-    std::cout << board.displayBoard().str();
-    assert(board.movePiece(0, 0, 1, 1));
-    assert(!(board.isPieceUnderThreat(1, 1)));
-    std::cout << board.displayBoard().str();
-    assert(board.movePiece(0, 3, 1, 2));
-    std::cout << board.displayBoard().str();
-    assert(board.movePiece(1, 1, 2, 2));
-    std::cout << board.displayBoard().str();
-}
-
 void something()
 {
-    Student::ChessBoard sBoard(4, 4);
+    Student::ChessBoard sBoard(8, 8);
+    sBoard.createChessPiece(White, Pawn, 2, 4);
+    sBoard.createChessPiece(White, Bishop, 3, 6);
+    sBoard.createChessPiece(Black, Bishop, 7, 3);
+    sBoard.createChessPiece(Black, Pawn, 5, 1);
+    sBoard.createChessPiece(White, Bishop, 7, 2);
+    sBoard.createChessPiece(Black, Bishop, 2, 2);
+    sBoard.createChessPiece(Black, Bishop, 7, 7);
+    sBoard.createChessPiece(White, Bishop, 4, 2);
+    sBoard.createChessPiece(Black, King, 0, 4);
+    sBoard.createChessPiece(White, King, 7, 4);
+    sBoard.createChessPiece(Black, Rook, 0, 0);
+    sBoard.createChessPiece(Black, Rook, 0, 7);
+    sBoard.createChessPiece(White, Rook, 7, 0);
+    sBoard.createChessPiece(White, Rook, 7, 7);
 
-    // Creating chess pieces
-    sBoard.createChessPiece(Black, Bishop, 0, 3);
-    sBoard.createChessPiece(Black, Rook, 0, 3);
-    sBoard.createChessPiece(White, Pawn, 2, 3);
-    sBoard.createChessPiece(Black, Pawn, 3, 0);
-    sBoard.createChessPiece(Black, King, 1, 2);
-    sBoard.createChessPiece(White, King, 1, 0);
-    
     std::cout << sBoard.displayBoard().str();
-
-    sBoard.movePiece(2,3,1,3);
-    std::cout << sBoard.displayBoard().str();
-    sBoard.movePiece(1,2,1,1);
-    std::cout << sBoard.displayBoard().str();
-
-    // // Moving pieces
-    // sBoard.movePiece(2, 3, 1, 3);
-    // sBoard.movePiece(0, 3, 0, 2);
-    // sBoard.movePiece(1, 0, 2, 0);
-    // sBoard.movePiece(0, 2, 0, 3);
-    // sBoard.movePiece(0, 0, 3, 3);//
-    // sBoard.movePiece(2, 0, 3, 1);
-    // std::cout << sBoard.displayBoard().str();
-    // sBoard.movePiece(1, 2, 2, 3);
-    // sBoard.movePiece(3, 1, 2, 0);
-    // sBoard.movePiece(2, 3, 3, 3);
-    // std::cout << sBoard.displayBoard().str();
-    // sBoard.movePiece(2, 3, 1, 2);//
-    // sBoard.movePiece(2, 0, 3, 1);
-    // sBoard.movePiece(0, 3, 0, 1);
-    // sBoard.movePiece(3, 1, 2, 0);
-    // sBoard.movePiece(0, 1, 0, 3);
-    // std::cout << sBoard.displayBoard().str();
-    // sBoard.movePiece(0, 0, 0, 1);//
-    // sBoard.movePiece(2, 0, 3, 0);
-    // sBoard.movePiece(0, 3, 0, 2);
-    // sBoard.movePiece(3, 0, 2, 0);
-    // sBoard.movePiece(0, 2, 1, 2);
-    // sBoard.movePiece(2, 2, 3, 1);
-    // sBoard.movePiece(2, 0, 3, 0);
-    // sBoard.movePiece(3, 3, 2, 3);
-    // sBoard.movePiece(3, 0, 2, 0);
-    // sBoard.movePiece(2, 3, 2, 2);
-    // sBoard.movePiece(1, 1, 3, 1);
-    // sBoard.movePiece(2, 0, 3, 0);
-    // sBoard.movePiece(2, 2, 1, 3);
-    // sBoard.movePiece(3, 0, 3, 1);
-    // sBoard.movePiece(1, 3, 2, 3);
-    // sBoard.movePiece(0, 0, 1, 3);
-    // sBoard.movePiece(3, 1, 2, 0);
-    // sBoard.movePiece(2, 3, 3, 3);
-    // sBoard.movePiece(2, 0, 3, 1);
-    // sBoard.movePiece(3, 3, 2, 3);
-    // sBoard.movePiece(2, 2, 1, 0);
-    // sBoard.movePiece(3, 1, 2, 1);
-    // sBoard.movePiece(1, 2, 3, 2);
-    // sBoard.movePiece(2, 1, 2, 0);
-    // sBoard.movePiece(3, 2, 2, 2);
-    // sBoard.movePiece(0, 1, 0, 0);
-    // sBoard.movePiece(2, 0, 1, 0);
-    // sBoard.movePiece(2, 2, 3, 2);
-    // sBoard.movePiece(1, 0, 2, 0);
-    // sBoard.movePiece(3, 2, 3, 1);
-    // sBoard.movePiece(3, 2, 0, 3);
-    // sBoard.movePiece(2, 0, 3, 1);
-    // sBoard.movePiece(2, 3, 3, 3);
-    // sBoard.movePiece(3, 1, 2, 0);
-    // sBoard.movePiece(3, 3, 3, 2);
-    // sBoard.movePiece(1, 2, 3, 1);
-    // sBoard.movePiece(2, 0, 1, 0);
-    // sBoard.movePiece(3, 2, 3, 3);
-    // sBoard.movePiece(1, 0, 0, 0);
-    // sBoard.movePiece(3, 3, 3, 2);
-    // sBoard.movePiece(0, 3, 0, 1);
-    // sBoard.movePiece(0, 0, 1, 1);
-    // sBoard.movePiece(3, 2, 3, 1);
-    // sBoard.movePiece(1, 1, 0, 0);
-    // sBoard.movePiece(3, 1, 2, 0);
-    // sBoard.movePiece(2, 3, 1, 0);
-    // sBoard.movePiece(0, 0, 0, 1);
-    // sBoard.movePiece(2, 0, 3, 0);
-    // sBoard.movePiece(0, 1, 1, 2);
-    // sBoard.movePiece(3, 0, 2, 0);
 }
 
 int main()
 {
-    something();//unit_isValidMove_bishop_one();
+    something();
     return EXIT_SUCCESS;
 }
