@@ -186,13 +186,13 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                     if (toCol > fromCol) // moving right
                     {
                         // move king to kingcol + 1 on tempboard
-                        if (tempBoard.board.at(kingrow).at(kingcol + 1) != nullptr) 
-                        {
-                            delete tempBoard.board.at(kingrow).at(kingcol + 1);
-                        }
-                        tempBoard.board.at(kingrow).at(kingcol + 1) = tempPiece;
-                        tempBoard.board.at(toRow).at(toCol) = nullptr;
-                        tempPiece->setPosition(kingrow, kingcol + 1); // temp
+                        // if (tempBoard.board.at(kingrow).at(kingcol + 1) != nullptr) 
+                        // {
+                        //     delete tempBoard.board.at(kingrow).at(kingcol + 1);
+                        // }
+                        // tempBoard.board.at(kingrow).at(kingcol + 1) = tempPiece;
+                        // tempBoard.board.at(toRow).at(toCol) = nullptr;
+                        // tempPiece->setPosition(kingrow, kingcol + 1); // temp
                         if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol + 1)))
                         {
                             adj_safe = true;
@@ -200,13 +200,13 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                     }
                     if (toCol < fromCol) // moving left
                     {
-                        if (tempBoard.board.at(kingrow).at(kingcol - 1) != nullptr) 
-                        {
-                            delete tempBoard.board.at(kingrow).at(kingcol - 1);
-                        }
-                        tempBoard.board.at(kingrow).at(kingcol - 1) = tempPiece;
-                        tempBoard.board.at(toRow).at(toCol) = nullptr;
-                        tempPiece->setPosition(kingrow, kingcol - 1); // temp
+                        // if (tempBoard.board.at(kingrow).at(kingcol - 1) != nullptr) 
+                        // {
+                        //     delete tempBoard.board.at(kingrow).at(kingcol - 1);
+                        // }
+                        // tempBoard.board.at(kingrow).at(kingcol - 1) = tempPiece;
+                        // tempBoard.board.at(toRow).at(toCol) = nullptr;
+                        // tempPiece->setPosition(kingrow, kingcol - 1); // temp
                         if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol - 1)))
                         {
                             adj_safe = true;
