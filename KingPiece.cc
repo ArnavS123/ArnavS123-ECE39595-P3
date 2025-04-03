@@ -4,7 +4,7 @@
 
 using Student::KingPiece;
 
-KingPiece::KingPiece(ChessBoard &board, Color color, int row, int column) : ChessPiece(board, color, row, column)
+KingPiece::KingPiece(ChessBoard &board, Color color, int row, int column) : ChessPiece(board, color, row, column), moved_kingW(false), moved_kingB(false), moved_rookLW(false), moved_rookLB(false), moved_rookRW(false), moved_rookRB(false)
 {
 }
 
