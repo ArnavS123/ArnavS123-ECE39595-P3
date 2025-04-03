@@ -185,6 +185,14 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                     // checking if space in bettween castle is safe
                     if (toCol > fromCol) // moving right
                     {
+                        // move king to kingcol + 1 on tempboard
+                        if (tempBoard.board.at(toRow).at(toCol - 1) != nullptr) 
+                        {
+                            delete tempBoard.board.at(toRow).at(toCol - 1);
+                        }
+                        tempBoard.board.at(toRow).at(toCol - 1) = tempPiece;
+                        tempBoard.board.at(toRow).at(toCol) = nullptr;
+                        tempPiece->setPosition(toRow, toCol - 1); // temp
                         if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol + 1)))
                         {
                             adj_safe = true;
@@ -192,6 +200,13 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                     }
                     if (toCol < fromCol) // moving left
                     {
+                        if (tempBoard.board.at(toRow).at(toCol + 1) != nullptr) 
+                        {
+                            delete tempBoard.board.at(toRow).at(toCol + 1);
+                        }
+                        tempBoard.board.at(toRow).at(toCol + 1) = tempPiece;
+                        tempBoard.board.at(toRow).at(toCol) = nullptr;
+                        tempPiece->setPosition(toRow, toCol + 1); // temp
                         if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol - 1)))
                         {
                             adj_safe = true;
@@ -305,7 +320,7 @@ bool ChessBoard::isPieceUnderThreat(int row, int col)
     // else false
 
     ChessPiece* currPiece = getPiece(row, col);
-    if (currPiece == nullptr) 
+    if (currPiece == nullptr) //ALWAYS RETURNS FALSE FOR EMPTY SPACE (NOT GOOD FOR OUR CHECK BETWEEN CASTLE)
     {
         return false; // No piece at (row, col)
     }
