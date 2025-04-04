@@ -32,14 +32,6 @@ void test_part1_4x4_1()
 void something()
 {
     Student::ChessBoard sBoard(8, 8);
-    sBoard.createChessPiece(White, Pawn, 2, 4);
-    sBoard.createChessPiece(White, Bishop, 3, 6);
-    sBoard.createChessPiece(Black, Bishop, 7, 3);
-    sBoard.createChessPiece(Black, Pawn, 5, 1);
-    sBoard.createChessPiece(White, Bishop, 7, 2);
-    sBoard.createChessPiece(Black, Bishop, 2, 2);
-    sBoard.createChessPiece(Black, Bishop, 7, 7);
-    sBoard.createChessPiece(White, Bishop, 4, 2);
     sBoard.createChessPiece(Black, King, 0, 4);
     sBoard.createChessPiece(White, King, 7, 4);
     sBoard.createChessPiece(Black, Rook, 0, 0);
@@ -47,6 +39,16 @@ void something()
     sBoard.createChessPiece(White, Rook, 7, 0);
     sBoard.createChessPiece(White, Rook, 7, 7);
 
+    std::cout << sBoard.displayBoard().str();
+
+    sBoard.movePiece(7, 4, 7, 5);
+    sBoard.movePiece(0, 0, 1, 0);
+    sBoard.movePiece(7, 5, 7, 4);
+    sBoard.movePiece(1, 0, 2, 0);
+
+    std::cout << sBoard.displayBoard().str();
+
+    sBoard.movePiece(7, 4, 7, 6);
     std::cout << sBoard.displayBoard().str();
 }
 

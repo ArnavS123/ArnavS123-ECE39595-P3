@@ -56,26 +56,37 @@ bool KingPiece::canMoveToLocation(int toRow, int toCol)
     }
     else if (abs(toCol - currCol) == 2 && abs(toRow - currRow) == 0 && board.getPiece(currRow, currCol)->get_moved() == false)
     {
+        bool pathClear = false;
+
         if (color == White)
         {
             if (toCol > currCol && emptyWR == true)
             {
-                return(true);
+                pathClear = true;
             }
             if (toCol < currCol && emptyWL == true)
             {
-                return(true);
+                pathClear = true;
             }
         }
         else // color == Black
         {
             if (toCol > currCol && emptyBR == true)
             {
-                return(true);
+                pathClear = true;
             }
             if (toCol < currCol && emptyBL == true)
             {
-                return(true);
+                pathClear = true;
+            }
+        }
+
+        if (pathClear)
+        {
+            // Check that no square is under threat
+            if (!board.isPieceUnderThreat(currRow, currCol) && !board.isPieceUnderThreat(currRow, (currCol + toCol) / 2) && !board.isPieceUnderThreat(toRow, toCol))
+            {
+                return true;
             }
         }
     }
