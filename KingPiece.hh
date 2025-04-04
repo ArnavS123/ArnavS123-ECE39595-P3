@@ -12,12 +12,7 @@ namespace Student
     class KingPiece : public ChessPiece
     {
         private:
-            bool moved_kingW = false;
-            bool moved_kingB = false;
-            bool moved_rookLW = false;
-            bool moved_rookRW = false;
-            bool moved_rookLB = false;
-            bool moved_rookRB = false;
+            bool moved = false;
         public:
             KingPiece(ChessBoard &board, Color color, int row, int column);
             virtual ChessPiece* copy(ChessBoard &newBoard) const override;

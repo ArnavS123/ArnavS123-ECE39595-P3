@@ -196,7 +196,7 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                         tempBoard2.board.at(kingrow).at(kingcol + 1) = tempPiece2;
                         tempBoard2.board.at(toRow).at(toCol) = nullptr;
                         tempPiece2->setPosition(kingrow, kingcol + 1); // temp
-                        if(!(tempBoard2.isPieceUnderThreat(kingrow, kingcol + 1)))
+                        if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol + 1)))
                         {
                             adj_safe = true;
                         }
@@ -210,7 +210,7 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                         tempBoard2.board.at(kingrow).at(kingcol - 1) = tempPiece2;
                         tempBoard2.board.at(toRow).at(toCol) = nullptr;
                         tempPiece2->setPosition(kingrow, kingcol - 1); // temp
-                        if(!(tempBoard2.isPieceUnderThreat(kingrow, kingcol - 1)))
+                        if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol - 1)))
                         {
                             adj_safe = true;
                         }
@@ -230,12 +230,17 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                 {
                     if(castle == false || adj_safe == false)
                     {
+                        castle_move = false;
                         return(false);
                     }
                     else
                     {
                         castle_move = true;
                     }
+                }
+                else
+                {
+                    castle_move = false;
                 }
                 return piece->canMoveToLocation(toRow, toCol);
             }
@@ -274,31 +279,31 @@ bool ChessBoard::movePiece(int fromRow, int fromCol, int toRow, int toCol)
     board.at(fromRow).at(fromCol) = nullptr;
     pieceToMove->setPosition(toRow, toCol);
 
-    // if (castle_move == true)
-    // {
-    //     //move rook
-    //     int rook_adj = 0; // +1 if to the right of king, -1 if to the left of king
-    //     int rook_row = fromRow;
-    //     int rook_col = -1;
-    //     if (toCol > fromCol) // moving right
-    //     {
-    //         rook_adj = -1;
-    //         rook_col = 7;
-    //     }
-    //     if (toCol < fromCol) // moving left
-    //     {
-    //         rook_adj = 1;
-    //         rook_col = 0;
-    //     }
-    //     ChessPiece* rook_piece = getPiece(rook_row, rook_col);
-    //     if (board.at(toRow).at(toCol + rook_adj) != nullptr) // if there is a piece there (isValidMove already checks for color)
-    //     {
-    //         delete board.at(toRow).at(toCol + rook_adj);
-    //     }
-    //     board.at(toRow).at(toCol + rook_adj) = rook_piece;
-    //     board.at(rook_row).at(rook_col) = nullptr;
-    //     rook_piece->setPosition(toRow, toCol + rook_adj);
-    // }
+    if (castle_move == true)
+    {
+        //move rook
+        int rook_adj = 0; // +1 if to the right of king, -1 if to the left of king
+        int rook_row = fromRow;
+        int rook_col = -1;
+        if (toCol > fromCol) // moving right
+        {
+            rook_adj = -1;
+            rook_col = 7;
+        }
+        if (toCol < fromCol) // moving left
+        {
+            rook_adj = 1;
+            rook_col = 0;
+        }
+        ChessPiece* rook_piece = getPiece(rook_row, rook_col);
+        if (board.at(toRow).at(toCol + rook_adj) != nullptr) // if there is a piece there (isValidMove already checks for color)
+        {
+            delete board.at(toRow).at(toCol + rook_adj);
+        }
+        board.at(toRow).at(toCol + rook_adj) = rook_piece;
+        board.at(rook_row).at(rook_col) = nullptr;
+        rook_piece->setPosition(toRow, toCol + rook_adj);
+    }
 
     // turn does not change if king in danger
     if (turn == White)

@@ -4,7 +4,7 @@
 
 using Student::KingPiece;
 
-KingPiece::KingPiece(ChessBoard &board, Color color, int row, int column) : ChessPiece(board, color, row, column), moved_kingW(false), moved_kingB(false), moved_rookLW(false), moved_rookRW(false), moved_rookLB(false), moved_rookRB(false)
+KingPiece::KingPiece(ChessBoard &board, Color color, int row, int column) : ChessPiece(board, color, row, column), moved(false)
 {
 }
 
@@ -25,28 +25,11 @@ bool KingPiece::canMoveToLocation(int toRow, int toCol)
 
     if (!(color == Black && currRow == 0 && currCol == 4))
     {
-        moved_kingB = true;
+        moved = true;
     }
     if (!(color == White && currRow == 7 && currCol == 4))
     {
-        moved_kingW = true;
-    }
-
-    if (board.getPiece(0, 0) == nullptr)
-    {
-        moved_rookLB = true;
-    }
-    if (board.getPiece(0, 7) == nullptr)
-    {
-        moved_rookRB = true;
-    }
-    if (board.getPiece(7, 0) == nullptr)
-    {
-        moved_rookLW = true;
-    }
-    if (board.getPiece(7, 7) == nullptr)
-    {
-        moved_rookRW = true;
+        moved = true;
     }
 
     if (board.getPiece(0, 1) == nullptr && board.getPiece(0, 2) == nullptr && board.getPiece(0, 3) == nullptr)
@@ -80,28 +63,26 @@ bool KingPiece::canMoveToLocation(int toRow, int toCol)
         // we also need to ensure that movePiece doesn't do anything if moving the king is dangerous
         return(true);
     }
-    else if (abs(toCol - currCol) == 2 && abs(toRow - currRow) == 0) // CASTLING
+    else if (abs(toCol - currCol) == 2 && abs(toRow - currRow) == 0 && moved == false)
     {
         if (color == White)
         {
-            if (moved_kingW == true) {return(false);}
-            if (toCol > currCol && emptyWR == true && moved_rookRW == false)
+            if (toCol > currCol && emptyWR == true)
             {
                 return(true);
             }
-            if (toCol < currCol && emptyWL == true && moved_rookLW == false)
+            if (toCol < currCol && emptyWL == true)
             {
                 return(true);
             }
         }
         else // color == Black
         {
-            if (moved_kingB == true) {return(false);}
-            if (toCol > currCol && emptyBR == true && moved_rookRB == false)
+            if (toCol > currCol && emptyBR == true)
             {
                 return(true);
             }
-            if (toCol < currCol && emptyBL == true && moved_rookLB == false)
+            if (toCol < currCol && emptyBL == true)
             {
                 return(true);
             }
