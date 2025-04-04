@@ -140,7 +140,9 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
         if (capturePiece == nullptr || capturePiece->getColor() != piece->getColor()) // capture condition
         {
             ChessBoard tempBoard(*this);  //use copy constructor
+            ChessBoard tempBoard2(*this);
             ChessPiece* tempPiece = tempBoard.getPiece(fromRow, fromCol);
+            ChessPiece* tempPiece2 = tempBoard2.getPiece(fromRow, fromCol);
             
             bool king_safe = false;
             
@@ -177,9 +179,6 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                 }
             }
 
-            ChessBoard tempBoard2(*this);  //use copy constructor AGAIN
-            ChessPiece* tempPiece2 = tempBoard2.getPiece(fromRow, fromCol);
-
             // if there is no king on the board OR if king is there but in danger bec of the move
             if (found_king == true && !(tempBoard.isPieceUnderThreat(kingrow, kingcol)))
             {
@@ -188,15 +187,15 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                     // checking if space in bettween castle is safe
                     if (toCol > fromCol) // moving right
                     {
-                        // move king to kingcol + 1 on tempboard
                         if (tempBoard2.board.at(kingrow).at(kingcol + 1) != nullptr) 
                         {
                             delete tempBoard2.board.at(kingrow).at(kingcol + 1);
                         }
+
                         tempBoard2.board.at(kingrow).at(kingcol + 1) = tempPiece2;
-                        tempBoard2.board.at(toRow).at(toCol) = nullptr;
+                        tempBoard2.board.at(kingrow).at(kingcol) = nullptr;
                         tempPiece2->setPosition(kingrow, kingcol + 1); // temp
-                        if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol + 1)))
+                        if(!(tempBoard2.isPieceUnderThreat(kingrow, kingcol + 1)))
                         {
                             adj_safe = true;
                         }
@@ -207,8 +206,9 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                         {
                             delete tempBoard2.board.at(kingrow).at(kingcol - 1);
                         }
+
                         tempBoard2.board.at(kingrow).at(kingcol - 1) = tempPiece2;
-                        tempBoard2.board.at(toRow).at(toCol) = nullptr;
+                        tempBoard2.board.at(kingrow).at(kingcol) = nullptr;
                         tempPiece2->setPosition(kingrow, kingcol - 1); // temp
                         if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol - 1)))
                         {
@@ -230,17 +230,12 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                 {
                     if(castle == false || adj_safe == false)
                     {
-                        castle_move = false;
                         return(false);
                     }
                     else
                     {
                         castle_move = true;
                     }
-                }
-                else
-                {
-                    castle_move = false;
                 }
                 return piece->canMoveToLocation(toRow, toCol);
             }
@@ -328,7 +323,7 @@ bool ChessBoard::isPieceUnderThreat(int row, int col)
     // else false
 
     ChessPiece* currPiece = getPiece(row, col);
-    if (currPiece == nullptr) //ALWAYS RETURNS FALSE FOR EMPTY SPACE (NOT GOOD FOR OUR CHECK BETWEEN CASTLE)
+    if (currPiece == nullptr) 
     {
         return false; // No piece at (row, col)
     }
