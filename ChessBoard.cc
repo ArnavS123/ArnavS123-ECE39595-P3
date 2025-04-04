@@ -7,11 +7,11 @@
 using Student::ChessBoard;
 
 ChessBoard::ChessBoard(int num_row, int num_col) : numRows(num_row), numCols(num_col), turn(White),
-board(numRows, std::vector<ChessPiece*>(numCols, nullptr))
+board(numRows, std::vector<ChessPiece*>(numCols, nullptr)), castle_move(false)
 {
 }
 
-ChessBoard::ChessBoard(const ChessBoard &other) : numRows(other.numRows), numCols(other.numCols), turn(other.turn), board(numRows, std::vector<ChessPiece*>(numCols, nullptr))
+ChessBoard::ChessBoard(const ChessBoard &other) : numRows(other.numRows), numCols(other.numCols), turn(other.turn), board(numRows, std::vector<ChessPiece*>(numCols, nullptr)), castle_move(other.castle_move)
 {
     for (int i = 0; i < numRows; i++)
     {
@@ -80,7 +80,6 @@ void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int start
 // NOTE FOR LATER: THREAT FUNCTION IS CALLING ISVALIDMOVE AND ISVALIDMOVE FUNCTION IS CALLING THREAT FUNCTION
 //////////
 
-bool castle_move = false;
 bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
 {
     bool castle = false;
@@ -230,17 +229,17 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                 {
                     if(castle == false || adj_safe == false)
                     {
-                        castle_move = false;
+                        this->castle_move = false;
                         return(false);
                     }
                     else
                     {
-                        castle_move = true;
+                        this->castle_move = true;
                     }
                 }
                 else
                 {
-                    castle_move = false;
+                    this->castle_move = false;
                 }
                 return piece->canMoveToLocation(toRow, toCol);
             }
@@ -279,7 +278,7 @@ bool ChessBoard::movePiece(int fromRow, int fromCol, int toRow, int toCol)
     board.at(fromRow).at(fromCol) = nullptr;
     pieceToMove->setPosition(toRow, toCol);
 
-    if (castle_move == true)
+    if (this->castle_move == true)
     {
         //move rook
         int rook_adj = 0; // +1 if to the right of king, -1 if to the left of king
