@@ -1,3 +1,26 @@
+#ifndef __KINGPIECE_H__
+#define __KINGPIECE_H__
+
+#include "ChessPiece.hh"
+
+/**
+ * Student implementation of a King chess piece.
+ * The class is defined within the Student namespace.
+ */
+namespace Student
+{
+    class KingPiece : public ChessPiece
+    {
+        private:
+            bool moved = false;
+        public:
+            KingPiece(ChessBoard &board, Color color, int row, int column);
+            virtual ChessPiece* copy(ChessBoard &newBoard) const override;
+            virtual Type getType() override {return King;}
+            virtual bool canMoveToLocation(int toRow, int toCol) override;
+            virtual const char *toString() override;
+    };
+}
 #include "ChessBoard.hh"
 #include "PawnPiece.hh"
 #include "RookPiece.hh"
@@ -140,9 +163,9 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
         if (capturePiece == nullptr || capturePiece->getColor() != piece->getColor()) // capture condition
         {
             ChessBoard tempBoard(*this);  //use copy constructor
-            ChessBoard tempBoard2(*this);
+            // ChessBoard tempBoard2(*this);
             ChessPiece* tempPiece = tempBoard.getPiece(fromRow, fromCol);
-            ChessPiece* tempPiece2 = tempBoard2.getPiece(fromRow, fromCol);
+            // ChessPiece* tempPiece2 = tempBoard2.getPiece(fromRow, fromCol);
             
             bool king_safe = false;
             
@@ -187,29 +210,29 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                     // checking if space in bettween castle is safe
                     if (toCol > fromCol) // moving right
                     {
-                        if (tempBoard2.board.at(kingrow).at(kingcol + 1) != nullptr) 
-                        {
-                            delete tempBoard2.board.at(kingrow).at(kingcol + 1);
-                        }
+                        // if (tempBoard2.board.at(kingrow).at(kingcol + 1) != nullptr) 
+                        // {
+                        //     delete tempBoard2.board.at(kingrow).at(kingcol + 1);
+                        // }
 
-                        tempBoard2.board.at(kingrow).at(kingcol + 1) = tempPiece2;
-                        tempBoard2.board.at(kingrow).at(kingcol) = nullptr;
-                        tempPiece2->setPosition(kingrow, kingcol + 1); // temp
-                        if(!(tempBoard2.isPieceUnderThreat(kingrow, kingcol + 1)))
+                        // tempBoard2.board.at(kingrow).at(kingcol + 1) = tempPiece2;
+                        // tempBoard2.board.at(kingrow).at(kingcol) = nullptr;
+                        // tempPiece2->setPosition(kingrow, kingcol + 1); // temp
+                        if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol + 1)))
                         {
                             adj_safe = true;
                         }
                     }
                     if (toCol < fromCol) // moving left
                     {
-                        if (tempBoard2.board.at(kingrow).at(kingcol - 1) != nullptr) 
-                        {
-                            delete tempBoard2.board.at(kingrow).at(kingcol - 1);
-                        }
+                        // if (tempBoard2.board.at(kingrow).at(kingcol - 1) != nullptr) 
+                        // {
+                        //     delete tempBoard2.board.at(kingrow).at(kingcol - 1);
+                        // }
 
-                        tempBoard2.board.at(kingrow).at(kingcol - 1) = tempPiece2;
-                        tempBoard2.board.at(kingrow).at(kingcol) = nullptr;
-                        tempPiece2->setPosition(kingrow, kingcol - 1); // temp
+                        // tempBoard2.board.at(kingrow).at(kingcol - 1) = tempPiece2;
+                        // tempBoard2.board.at(kingrow).at(kingcol) = nullptr;
+                        // tempPiece2->setPosition(kingrow, kingcol - 1); // temp
                         if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol - 1)))
                         {
                             adj_safe = true;
@@ -387,3 +410,4 @@ std::ostringstream ChessBoard::displayBoard()
 
     return outputString;
 }
+#endif
