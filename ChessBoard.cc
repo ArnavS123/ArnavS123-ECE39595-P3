@@ -86,19 +86,19 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
     bool castle_attempt = false;
     bool adj_safe = false;
 
-    if (getPiece(fromRow, fromCol)->getType() == King && getPiece(fromRow, fromCol)->getColor() == Black && getPiece(fromRow, fromCol)->get_moved() == false && toRow == 0 && toCol == 2)
+    if (getPiece(fromRow, fromCol) != nullptr && getPiece(fromRow, fromCol)->getType() == King && getPiece(fromRow, fromCol)->getColor() == Black && getPiece(fromRow, fromCol)->get_moved() == false && toRow == 0 && toCol == 2)
     {
         castle_attempt = true;
     }
-    if (getPiece(fromRow, fromCol)->getType() == King && getPiece(fromRow, fromCol)->getColor() == Black && getPiece(fromRow, fromCol)->get_moved() == false && toRow == 0 && toCol == 6)
+    if (getPiece(fromRow, fromCol) != nullptr && getPiece(fromRow, fromCol)->getType() == King && getPiece(fromRow, fromCol)->getColor() == Black && getPiece(fromRow, fromCol)->get_moved() == false && toRow == 0 && toCol == 6)
     {
         castle_attempt = true;
     }
-    if (getPiece(fromRow, fromCol)->getType() == King && getPiece(fromRow, fromCol)->getColor() == White && getPiece(fromRow, fromCol)->get_moved() == false && toRow == 7 && toCol == 2)
+    if (getPiece(fromRow, fromCol) != nullptr && getPiece(fromRow, fromCol)->getType() == King && getPiece(fromRow, fromCol)->getColor() == White && getPiece(fromRow, fromCol)->get_moved() == false && toRow == 7 && toCol == 2)
     {
         castle_attempt = true;
     }
-    if (getPiece(fromRow, fromCol)->getType() == King && getPiece(fromRow, fromCol)->getColor() == White && getPiece(fromRow, fromCol)->get_moved() == false && toRow == 7 && toCol == 6)
+    if (getPiece(fromRow, fromCol) != nullptr && getPiece(fromRow, fromCol)->getType() == King && getPiece(fromRow, fromCol)->getColor() == White && getPiece(fromRow, fromCol)->get_moved() == false && toRow == 7 && toCol == 6)
     {
         castle_attempt = true;
     }
@@ -106,19 +106,19 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
     // is castle ok?
     if (castle_attempt == true)
     {
-        if (getPiece(0, 0)->getColor() == Black && getPiece(0, 0)->getType() == Rook && getPiece(0, 0)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
+        if (getPiece(0, 0) != nullptr && getPiece(0, 0)->getColor() == Black && getPiece(0, 0)->getType() == Rook && getPiece(0, 0)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
         {
             castle = true;
         }
-        if (getPiece(0, 7)->getColor() == Black && getPiece(0, 7)->getType() == Rook && getPiece(0, 7)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
+        if (getPiece(0, 7) != nullptr && getPiece(0, 7)->getColor() == Black && getPiece(0, 7)->getType() == Rook && getPiece(0, 7)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
         {
             castle = true;
         }
-        if (getPiece(7, 0)->getColor() == White && getPiece(7, 0)->getType() == Rook && getPiece(7, 0)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
+        if (getPiece(7, 0) != nullptr && getPiece(7, 0)->getColor() == White && getPiece(7, 0)->getType() == Rook && getPiece(7, 0)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
         {
             castle = true;
         }
-        if (getPiece(7, 7)->getColor() == White && getPiece(7, 7)->getType() == Rook && getPiece(7, 7)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
+        if (getPiece(7, 7) != nullptr && getPiece(7, 7)->getColor() == White && getPiece(7, 7)->getType() == Rook && getPiece(7, 7)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
         {
             castle = true;
         }

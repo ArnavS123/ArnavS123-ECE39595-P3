@@ -31,25 +31,37 @@ void test_part1_4x4_1()
 
 void something()
 {
-    Student::ChessBoard sBoard(8, 8);
-    sBoard.createChessPiece(Black, King, 0, 4);
-    sBoard.createChessPiece(White, King, 7, 4);
-    sBoard.createChessPiece(Black, Rook, 0, 0);
-    sBoard.createChessPiece(Black, Rook, 0, 7);
-    sBoard.createChessPiece(White, Rook, 7, 0);
-    sBoard.createChessPiece(White, Rook, 7, 7);
+    Student::ChessBoard board(8, 8);
 
-    std::cout << sBoard.displayBoard().str();
+    // Create kings
+    board.createChessPiece(White, King, 7, 4);
+    board.createChessPiece(Black, King, 0, 4);
 
-    sBoard.movePiece(7, 4, 7, 5);
-    sBoard.movePiece(0, 0, 1, 0);
-    sBoard.movePiece(7, 5, 7, 4);
-    sBoard.movePiece(1, 0, 2, 0);
+    // Create rooks for castling
+    board.createChessPiece(White, Rook, 7, 0);
+    board.createChessPiece(White, Rook, 7, 7);
+    board.createChessPiece(Black, Rook, 0, 0);
+    board.createChessPiece(Black, Rook, 0, 7);
 
-    std::cout << sBoard.displayBoard().str();
+    // Move white king to right (castling prep)
+    board.movePiece(7, 4, 7, 5);
+    board.movePiece(0, 0, 1, 0);
+    board.movePiece(7, 5, 7, 4);
+    board.movePiece(1, 0, 2, 0);
 
-    sBoard.movePiece(7, 4, 7, 6);
-    std::cout << sBoard.displayBoard().str();
+    // Move black rook to open path
+    board.movePiece(0, 7, 0, 6);
+    board.movePiece(2, 0, 3, 0);
+
+    // Perform castling
+    board.movePiece(7, 4, 7, 6); // White castles kingside
+    board.movePiece(0, 4, 0, 2); // Black castles queenside (test both sides!)
+
+    std::cout << board.displayBoard().str();
+
+    // After this function ends:
+    // --> board and copiedBoard destructors will run
+    // --> All pieces should be deleted without leaks
 }
 
 int main()
