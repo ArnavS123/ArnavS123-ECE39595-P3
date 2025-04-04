@@ -4,7 +4,7 @@
 
 using Student::KingPiece;
 
-KingPiece::KingPiece(ChessBoard &board, Color color, int row, int column) : ChessPiece(board, color, row, column), moved(false)
+KingPiece::KingPiece(ChessBoard &board, Color color, int row, int column) : ChessPiece(board, color, row, column)
 {
 }
 
@@ -22,15 +22,6 @@ bool KingPiece::canMoveToLocation(int toRow, int toCol)
     bool emptyWL = false;
     bool emptyBR = false;
     bool emptyBL = false;
-
-    if (!(color == Black && currRow == 0 && currCol == 4))
-    {
-        moved = true;
-    }
-    if (!(color == White && currRow == 7 && currCol == 4))
-    {
-        moved = true;
-    }
 
     if (board.getPiece(0, 1) == nullptr && board.getPiece(0, 2) == nullptr && board.getPiece(0, 3) == nullptr)
     {
@@ -63,7 +54,7 @@ bool KingPiece::canMoveToLocation(int toRow, int toCol)
         // we also need to ensure that movePiece doesn't do anything if moving the king is dangerous
         return(true);
     }
-    else if (abs(toCol - currCol) == 2 && abs(toRow - currRow) == 0 && moved == false)
+    else if (abs(toCol - currCol) == 2 && abs(toRow - currRow) == 0 && board.getPiece(currRow, currCol)->get_moved() == false)
     {
         if (color == White)
         {

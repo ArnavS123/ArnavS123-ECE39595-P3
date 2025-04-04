@@ -15,6 +15,7 @@
     Color color;
     int row;
     int column;
+    bool moved = false;
   public:
     /**
      * @brief
@@ -99,6 +100,9 @@
      * A unicode representation of the piece.
      */
     virtual const char *toString() = 0;
+
+    bool get_moved() {return moved;};
+    void set_moved() {moved = true;};
   };
 }
 

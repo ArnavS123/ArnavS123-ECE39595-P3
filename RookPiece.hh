@@ -11,8 +11,6 @@ namespace Student
 {
     class RookPiece : public ChessPiece
     {
-        private:
-            bool moved = false;
         public:
             RookPiece(ChessBoard &board, Color color, int row, int column);
             virtual ChessPiece* copy(ChessBoard &newBoard) const override;

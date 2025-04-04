@@ -4,7 +4,7 @@
 
 using Student::RookPiece;
 
-RookPiece::RookPiece(ChessBoard &board, Color color, int row, int column) : ChessPiece(board, color, row, column), moved(false)
+RookPiece::RookPiece(ChessBoard &board, Color color, int row, int column) : ChessPiece(board, color, row, column)
 {
 }
 
@@ -17,24 +17,6 @@ bool RookPiece::canMoveToLocation(int toRow, int toCol)
 {
     int currRow = getRow();
     int currCol = getColumn();
-    Color color = getColor();
-
-    if (!(color == White && currRow == 0 && currCol == 0))
-    {
-        moved = true;
-    }
-    if (!(color == White && currRow == 0 && currCol == 7))
-    {
-        moved = true;
-    }
-    if (!(color == Black && currRow == 7 && currCol == 0))
-    {
-        moved = true;
-    }
-    if (!(color == Black && currRow == 7 && currCol == 7))
-    {
-        moved = true;
-    }
 
     //can't move to same pos
     if(toRow == currRow && toCol == currCol)
