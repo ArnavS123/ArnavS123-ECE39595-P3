@@ -83,6 +83,10 @@ void ChessBoard::createChessPiece(Color col, Type piece, int startRow, int start
 bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
 {
     bool castle = false;
+    bool castleWR = false;
+    bool castleWL = false;
+    bool castleBR = false;
+    bool castleBL = false;
     bool castle_attempt = false;
     bool adj_safe = false;
 
@@ -108,21 +112,22 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
     {
         if (getPiece(0, 0) != nullptr && getPiece(0, 0)->getColor() == Black && getPiece(0, 0)->getType() == Rook && getPiece(0, 0)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
         {
-            castle = true;
+            castleBL = true;
         }
         if (getPiece(0, 7) != nullptr && getPiece(0, 7)->getColor() == Black && getPiece(0, 7)->getType() == Rook && getPiece(0, 7)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
         {
-            castle = true;
+            castleBR = true;
         }
         if (getPiece(7, 0) != nullptr && getPiece(7, 0)->getColor() == White && getPiece(7, 0)->getType() == Rook && getPiece(7, 0)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
         {
-            castle = true;
+            castleWL = true;
         }
         if (getPiece(7, 7) != nullptr && getPiece(7, 7)->getColor() == White && getPiece(7, 7)->getType() == Rook && getPiece(7, 7)->get_moved() == false && (isPieceUnderThreat(fromRow, fromCol) == false))
         {
-            castle = true;
+            castleWR = true;
         }
     }
+    castle = castleWR || castleWL || castleBR || castleBL;
 
     // = because numRows and numCols tell us how many and we start from 0
     if (!(fromRow < 0 || fromRow >= numRows || fromCol < 0 || fromCol >= numCols ||

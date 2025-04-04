@@ -83,11 +83,7 @@ bool KingPiece::canMoveToLocation(int toRow, int toCol)
 
         if (pathClear)
         {
-            // Check that no square is under threat
-            if (!board.isPieceUnderThreat(currRow, currCol) && !board.isPieceUnderThreat(currRow, (currCol + toCol) / 2) && !board.isPieceUnderThreat(toRow, toCol))
-            {
-                return true;
-            }
+            return(true);
         }
     }
     
