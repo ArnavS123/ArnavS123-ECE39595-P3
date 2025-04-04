@@ -230,12 +230,17 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                 {
                     if(castle == false || adj_safe == false)
                     {
+                        castle_move = false;
                         return(false);
                     }
                     else
                     {
                         castle_move = true;
                     }
+                }
+                else
+                {
+                    castle_move = false;
                 }
                 return piece->canMoveToLocation(toRow, toCol);
             }
