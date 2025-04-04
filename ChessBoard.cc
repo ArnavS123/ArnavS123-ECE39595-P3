@@ -177,6 +177,9 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                 }
             }
 
+            ChessBoard tempBoard2(*this);  //use copy constructor AGAIN
+            ChessPiece* tempPiece2 = tempBoard2.getPiece(fromRow, fromCol);
+
             // if there is no king on the board OR if king is there but in danger bec of the move
             if (found_king == true && !(tempBoard.isPieceUnderThreat(kingrow, kingcol)))
             {
@@ -186,28 +189,28 @@ bool ChessBoard::isValidMove(int fromRow, int fromCol, int toRow, int toCol)
                     if (toCol > fromCol) // moving right
                     {
                         // move king to kingcol + 1 on tempboard
-                        if (tempBoard.board.at(kingrow).at(kingcol + 1) != nullptr) 
+                        if (tempBoard2.board.at(kingrow).at(kingcol + 1) != nullptr) 
                         {
-                            delete tempBoard.board.at(kingrow).at(kingcol + 1);
+                            delete tempBoard2.board.at(kingrow).at(kingcol + 1);
                         }
-                        tempBoard.board.at(kingrow).at(kingcol + 1) = tempPiece;
-                        tempBoard.board.at(toRow).at(toCol) = nullptr;
-                        tempPiece->setPosition(kingrow, kingcol + 1); // temp
-                        if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol + 1)))
+                        tempBoard2.board.at(kingrow).at(kingcol + 1) = tempPiece2;
+                        tempBoard2.board.at(toRow).at(toCol) = nullptr;
+                        tempPiece2->setPosition(kingrow, kingcol + 1); // temp
+                        if(!(tempBoard2.isPieceUnderThreat(kingrow, kingcol + 1)))
                         {
                             adj_safe = true;
                         }
                     }
                     if (toCol < fromCol) // moving left
                     {
-                        if (tempBoard.board.at(kingrow).at(kingcol - 1) != nullptr) 
+                        if (tempBoard2.board.at(kingrow).at(kingcol - 1) != nullptr) 
                         {
-                            delete tempBoard.board.at(kingrow).at(kingcol - 1);
+                            delete tempBoard2.board.at(kingrow).at(kingcol - 1);
                         }
-                        tempBoard.board.at(kingrow).at(kingcol - 1) = tempPiece;
-                        tempBoard.board.at(toRow).at(toCol) = nullptr;
-                        tempPiece->setPosition(kingrow, kingcol - 1); // temp
-                        if(!(tempBoard.isPieceUnderThreat(kingrow, kingcol - 1)))
+                        tempBoard2.board.at(kingrow).at(kingcol - 1) = tempPiece2;
+                        tempBoard2.board.at(toRow).at(toCol) = nullptr;
+                        tempPiece2->setPosition(kingrow, kingcol - 1); // temp
+                        if(!(tempBoard2.isPieceUnderThreat(kingrow, kingcol - 1)))
                         {
                             adj_safe = true;
                         }
